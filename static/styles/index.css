@@ -1,0 +1,35 @@
+/* static/style.css */
+body {
+  background: #282c35;
+  color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+h1 {
+  color: #ff79c6;
+}
+
+p {
+  font-size: 18px;
+  color: #8be9fd;
+}
+
+span {
+  color: #50fa7b;
+}
+
+button {
+  background-color: #bd93f9;
+  color: #282c35;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff79c6;
+}

@@ -1,0 +1,73 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# Flask specific
+instance/
+.pytest_cache/
+.cov/
+.coverage
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Compiled Python files
+*.pyc
+
+# Database
+db.sqlite
+
+# Package files
+*.tar
+*.gz
+*.bz2
+*.zip
+
+# Dependency directories
+lib/
+lib64/
+bin/
+include/
+
+# Output of pyinstaller
+dist/
+build/
+
+# Distribution / packaging
+.Python
+*.db
+*.sqlite3
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+.sage-sage/
+
+# Environments
+.env
+.venv
+env
