@@ -6,6 +6,9 @@ Project Mirage is a unique endeavour where talented developers from GDSC MPSTME 
 
 As the project progresses, the mirage will lift and the big picture will come into focus. What creative solutions will emerge from this mystery development process? What ingenious features will our developers dream up while flying solo? The suspense is exhilarating!
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for more information on how to contribute to this project.
 
 ## License
 
