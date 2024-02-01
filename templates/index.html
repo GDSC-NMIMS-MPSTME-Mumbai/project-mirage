@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Loading the css file -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/index.css') }}"
+    />
+    <title>Homepage</title>
+  </head>
+  <body>
+    <h1>
+      Random Number:
+      <span id="random-number"></span>
+    </h1>
+    <!-- Button to trigger the generation of a random number -->
+    <button onclick="fetchRandomNumber()">Generate Random Number</button>
+  </body>
+  <script>
+    // JavaScript function to fetch a random number from the server
+    function fetchRandomNumber() {
+      // Make a fetch request to the '/generate-random' endpoint
+      fetch("{{ url_for('generate') }}")
+        // Convert the response to text
+        .then((response) => response.text())
+        // Update the content of the 'random-number' span with the fetched number
+        .then((data) => {
+          document.getElementById("random-number").innerText = data;
+        })
+        // Handle errors by logging them to the console
+        .catch((error) => console.error("Error:", error));
+    }
+
+    // Fetch a random number when the page loads
+    fetchRandomNumber();
+  </script>
+</html>
