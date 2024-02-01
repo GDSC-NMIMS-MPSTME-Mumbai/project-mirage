@@ -7,26 +7,21 @@
 
 ## Setup
 
-1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/GDSC-NMIMS-MPSTME-Mumbai/project-mirage.git
 
-   ```
-
-2. **Navigate to project directory**
+1. **Navigate to project directory**
 
    ```bash
    cd project-mirage
    ```
 
-3. **Create a virtual environment (optional but recommended)**
+2. **Create a virtual environment (optional but recommended)**
 
    ```bash
    python -m venv venv
    ```
 
-4. **Activate the virtual environment (venv):**
+3. **Activate the virtual environment (venv):**
 
    - **For Windows:**
 
@@ -39,7 +34,7 @@
      source venv/bin/activate
      ```
 
-5. **Installing dependencies**
+4. **Installing dependencies**
 
    ```bash
    pip install -r requirements.txt
@@ -47,7 +42,7 @@
 ## Running the application
 Running the Application
 
-5. **Run the Flask application:**
+1. **Run the Flask application:**
 
    ```bash
    python main.py
