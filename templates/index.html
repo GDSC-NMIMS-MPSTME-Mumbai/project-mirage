@@ -8,23 +8,36 @@
   </head>
   <body>
     <div class="particles"></div>
-    <h1 class="changing" id="random-number">Random Number:</h1>
-    <!-- Button to trigger the generation of a random number -->
-    <button id="generate-button" onclick="fetchRandomNumber()">Generate Random Number</button>
 
-    <!-- Input field to change text and button color -->
-    <label for="color-input">Choose a color for the buttons and the number being generated:</label>
-    <input type="text" id="color-input" placeholder="Enter a color" />
-    <button id="color-button" onclick="changeColor()">Apply Color</button>
+    <main>
+      <h1>
+        Random Number:
+        <span id="random-number"></span>
+      </h1>
 
+      <div class="controls">
+        <!-- Button to trigger the generation of a random number -->
+        <button id="generate-button" onclick="fetchRandomNumber()">Generate Random Number</button>
+
+        <!-- Input field to change text and button color -->
+        <div class="color-control">
+          <label for="color-input">Choose a color:</label>
+          <input type="color" id="color-input" placeholder="Enter a color" value="#2ecc71" />
+          <button id="color-button" onclick="changeColor()">Apply Color</button>
+        </div>
+      </div>
+    </main>
+  
     <script>
+      const randomNumberElement = document.getElementById("random-number");
+      const generateButton = document.getElementById('generate-button');
+      const colorButton = document.getElementById('color-button');
+
       function fetchRandomNumber() {
         fetch("{{ url_for('generate') }}")
           .then((response) => response.text())
           .then((data) => {
-            const randomNumberElement = document.getElementById("random-number");
-            randomNumberElement.classList.add('changing');
-            randomNumberElement.innerText = `Random Number: ${data}`;
+            randomNumberElement.innerText = data;
           })
           .catch((error) => console.error("Error:", error));
       }
@@ -33,11 +46,6 @@
         const colorInput = document.getElementById('color-input').value;
 
         if (colorInput) {
-          const randomNumberElement = document.getElementById('random-number');
-          const generateButton = document.getElementById('generate-button');
-          const colorButton = document.getElementById('color-button');
-
-          randomNumberElement.style.color = colorInput;
           generateButton.style.backgroundColor = colorInput;
           colorButton.style.backgroundColor = colorInput;
         }
