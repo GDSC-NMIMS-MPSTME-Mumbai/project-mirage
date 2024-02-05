@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="particles"></div>
+
+    <main>
+      <h3 class="animate-character" style="text-align: center; font-size: 60px;">ButtonDash: Color Quest</h3>
+
+      <h1>
+        Random Number:
+        <span id="random-number"></span>
+        Points: <span id="points">0</span> <!-- New span to display the points -->
+      </h1>
+
+      <div class="controls">
+        <!-- Button to trigger the generation of a random number -->
+        <button id="generate-button" onclick="fetchRandomNumber()">Generate Random Number</button>
+
+        <!-- Input field to change text and button color -->
+        <div class="color-control">
+          <label for="color-input">Choose a color:</label>
+          <input type="color" id="color-input" placeholder="Enter a color" value="#2ecc71" />
+          <button id="color-button" onclick="changeColor()">Apply Color</button>
+        </div>
+      </div>
+    </main>
+  
+    <script>
+      const randomNumberElement = document.getElementById("random-number");
+      const pointsElement = document.getElementById("points"); // Get the new span
+      const generateButton = document.getElementById('generate-button');
+      const colorButton = document.getElementById('color-button');
+      let points = 0;
+      let timerId = null;
+      let particleNum = 0;
+      function fetchRandomNumber() {
+        fetch("{{ url_for('generate') }}")
+          .then((response) => response.text())
+          .then((data) => {
+            randomNumberElement.innerText = data;
+            moveButton();
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      function moveButton() {
+        const containerWidth = document.body.offsetWidth;
+        const containerHeight = document.body.offsetHeight;
+        const buttonWidth = generateButton.offsetWidth;
+        const buttonHeight = generateButton.offsetHeight;
+
+        const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
+        const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
+
+        generateButton.style.top = `${randomY}px`;
+        generateButton.style.left = `${randomX}px`;
+
+        points++;
+        particleNum++;
+
+        pointsElement.innerText = points; // Update the points
+
+        for (let i = 0; i < points*5; i++) {
+          const particle = document.createElement('div');
+          particle.classList.add('particle');
+          particle.style.left = `${Math.random() * 100}vw`;
+          particle.style.top = `${Math.random() * 100}vh`;
+          particlesContainer.appendChild(particle);
+        }
+
+        if (points === 15 && timerId === null) {
+          timerId = setInterval(() => {
+            const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
+            const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
+            changeColor();
+            generateButton.style.top = `${randomY}px`;
+            generateButton.style.left = `${randomX}px`;
+            const randomColor = getRandomColor(); // Get a random color
+            document.getElementById('color-input').value = randomColor; // Set the color input value
+            changeColor();
+          }, 800);
+          
+        }
+      }
+
+      function getRandomColor() {
+        const r = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+        const g = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+        const b = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+        return `#${r}${g}${b}`;
+      }
+
+      function changeColor() {
+        const colorInput = document.getElementById('color-input').value;
+
+        if (colorInput) {
+          generateButton.style.backgroundColor = colorInput;
+          colorButton.style.backgroundColor = colorInput;
+        }
+      }
+
+      // Create and append particles to the document
+      const particlesContainer = document.querySelector('.particles');
+      for (let i = 0; i < 100; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        particlesContainer.appendChild(particle);
+      }
+
+      fetchRandomNumber();
+    </script>
+  </body>
+</html>
