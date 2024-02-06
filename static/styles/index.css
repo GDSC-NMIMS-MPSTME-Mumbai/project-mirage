@@ -41,6 +41,25 @@ body::before {
   transform-origin: center;
 }
 
+#quote-container{
+  margin-bottom: 5rem;
+  outline: 8px solid #3498db;
+  width: 47vw;
+  min-height: 15vh;
+  text-align: center;
+  font-size: 2em;
+  font-weight: lighter;
+  font-style: italic;
+  align-self: center;
+}
+
+#output{
+  margin-top: 2rem;
+  max-width: 45vw;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
 @keyframes moveParticle {
   0%, 25% {
     transform: translate(0, 0);
