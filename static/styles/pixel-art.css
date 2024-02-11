@@ -8,69 +8,12 @@ body {
   min-height: 100vh;
 }
 
-
-
-.particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background-color: #000;
-  border-radius: 50%;
-  animation: moveParticle 10s infinite linear; 
-  transform-origin: center;
-}
-
-#quote-container{
-  margin-bottom: 5rem;
-  outline: 8px solid #3498db;
-  width: 47vw;
-  min-height: 15vh;
-  text-align: center;
-  font-size: 2em;
-  font-weight: lighter;
-  font-style: italic;
-  align-self: center;
-}
-
-#output{
-  margin-top: 2rem;
-  max-width: 45vw;
-  text-align: center;
-  padding-bottom: 1rem;
-}
-
-@keyframes moveParticle {
-  0%, 25% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(100%, 100%);
-  }
-  75% {
-    transform: translate(-100%, -100%);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
 main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 90%;
   max-width: 900px;
-
 }
 
 h1, button, label {
@@ -143,17 +86,17 @@ label {
   background-color: #e74c3c;
 }
 
-
 nav {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   width: 100%;
   background-color: black;
   padding: 0 20px;
 }
 
-.logo, .nav-text {
+.logo {
+  margin-left: 20px;
   display: inline-flex;
   align-items: center;
 }
@@ -171,7 +114,7 @@ nav ul {
 }
 
 nav ul li {
-  margin: 0 10px;
+  margin: 0 20px;
 }
 
 nav ul li a {
@@ -183,15 +126,4 @@ nav ul li a {
 
 nav ul li a:hover {
   color: #3498db; 
-}
-
-.nav-text {
-  font-size: 40px; 
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: white; 
-  margin-left: 20px;  
-
-}
-.spacer {
-  flex-grow: 1; /* Takes up all available space */
 }

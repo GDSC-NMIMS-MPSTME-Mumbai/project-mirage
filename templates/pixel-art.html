@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Mirage - Pixel Art</title>
-  <link rel="stylesheet" href="index.css" />
+  <title>Pixel Art</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/pixel-art.css') }}" />
   <style>
- 
     #drawingBoard {
       display: grid;
       margin: 20px auto;
@@ -42,27 +41,26 @@
 <body>
   <nav>
     <div class="logo">
-      <img src="logo.png" alt="Company Logo" height="100px" width="100px" />
+      <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo" height="100px" width="100px" />
     </div>
-    <div class="nav-text">Project Mirage</div>
-    <div class="spacer"></div>
     <ul>
-      <li><a href="home.html">Home</a></li>
-      <li><a href="index.html">ButtonDash: Color Quest</a></li>
-      <li><a href="pixel-art.html">Pixel-art</a></li>
+      <li><a href="/">Button Racer</a></li>
+      <li><a href="/pixel-art">Pixel Art</a></li>
     </ul>
   </nav>
   <h2 class="title">Pixel Art</h2>
 
-  <div class="color-picker">
-    <div class="color-choice" style="background-color: black;" data-color="black"></div>
-    <div class="color-choice" style="background-color: red;" data-color="red"></div>
-    <div class="color-choice" style="background-color: green;" data-color="green"></div>
-    <div class="color-choice" style="background-color: blue;" data-color="blue"></div>
-    <div class="color-choice" style="background-color: yellow;" data-color="yellow"></div>
-  </div>
+  <main>
+    <div class="color-picker">
+      <div class="color-choice" style="background-color: black;" data-color="black"></div>
+      <div class="color-choice" style="background-color: red;" data-color="red"></div>
+      <div class="color-choice" style="background-color: green;" data-color="green"></div>
+      <div class="color-choice" style="background-color: blue;" data-color="blue"></div>
+      <div class="color-choice" style="background-color: yellow;" data-color="yellow"></div>
+    </div>
 
-  <div id="drawingBoard"></div>
+    <div id="drawingBoard"></div>
+  </main>
   <script>
     const boardSize = 32;
     const board = document.getElementById('drawingBoard');
