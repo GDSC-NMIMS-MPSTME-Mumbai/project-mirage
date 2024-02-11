@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Art</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/pixel-art.css') }}" />
+  <style>
+    #drawingBoard {
+      display: grid;
+      margin: 20px auto;
+      border: 2px solid #000;
+    }
+    .pixel {
+      width: 10px; 
+      height: 10px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+    .color-picker {
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+    }
+    .color-choice {
+      width: 30px;
+      height: 30px;
+      border: 2px solid #000;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    .title {
+      text-align: center;
+      font-family:Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 30px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo" height="100px" width="100px" />
+    </div>
+    <ul>
+      <li><a href="/">Button Racer</a></li>
+      <li><a href="/pixel-art">Pixel Art</a></li>
+    </ul>
+  </nav>
+  <h2 class="title">Pixel Art</h2>
+
+  <main>
+    <div class="color-picker">
+      <div class="color-choice" style="background-color: black;" data-color="black"></div>
+      <div class="color-choice" style="background-color: red;" data-color="red"></div>
+      <div class="color-choice" style="background-color: green;" data-color="green"></div>
+      <div class="color-choice" style="background-color: blue;" data-color="blue"></div>
+      <div class="color-choice" style="background-color: yellow;" data-color="yellow"></div>
+    </div>
+
+    <div id="drawingBoard"></div>
+  </main>
+  <script>
+    const boardSize = 32;
+    const board = document.getElementById('drawingBoard');
+    board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+    board.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
+    let currentColor = 'black'; 
+ 
+    function createPixels() {
+      for (let i = 0; i < boardSize * boardSize; i++) {
+        const pixel = document.createElement('div');
+        pixel.classList.add('pixel');
+  
+        pixel.addEventListener('click', () => pixel.style.backgroundColor = currentColor);
+        board.appendChild(pixel);
+      }
+    }
+
+  
+    document.querySelectorAll('.color-choice').forEach(item => {
+      item.addEventListener('click', () => {
+        currentColor = item.getAttribute('data-color');
+      });
+    });
+
+    createPixels(); 
+  </script>
+</body>
+</html>

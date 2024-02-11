@@ -13,6 +13,10 @@ def hello_world():
     # Render the 'index.html' template 
     return render_template('index.html')
 
+@app.route('/pixel-art')
+def pixel_art():
+    return render_template('pixel-art.html')
+
 # Define a route for the '/generate-random' URL
 @app.route('/generate-random')
 def generate():
