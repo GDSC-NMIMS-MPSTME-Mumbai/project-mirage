@@ -26,6 +26,10 @@ def generate():
     # Return the generated number as a plain text response
     return Response(str(number), content_type='text/plain')
 
+@app.route('/filter')
+def filter():
+    return render_template('filter.html')
+
 # Run the Flask application if this script is executed directly
 if __name__ == '__main__':
     # Enabling debugging mode for easier development
