@@ -1,220 +1,74 @@
+<!-- script for this html is in js directory inside static, the script tag used here is just to link the proper url for the generate function -->
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homepage</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}" />
-  </head>
-  <body>
-    <div id="blob"></div>
-    <div id="blur"></div>
-    <div class="particles"></div>
-    <nav>
-      <div class="logo">
-        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo" height="100px" width="100px" />
-      </div>
-      <ul>
-        <li><a href="/">Button Racer</a></li>
-        <li><a href="/pixel-art">Pixel Art</a></li>
-        <li><a href="/filter">Filter Image</a></li>
-      </ul>
-    </nav>
-    <main>
-      <h3 class="animate-character" id="hero-text" data-value="Button Racer">Button Racer</h3>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Homepage</title>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='styles/index.css') }}"
+		/>
+		<script
+			defer
+			src="{{ url_for('static', filename='js/index.js') }}"
+		></script>
+	</head>
+	<body>
+		<div id="blob"></div>
+		<div id="blur"></div>
+		<div class="particles"></div>
+		<nav>
+			<div class="logo">
+				<img
+					src="{{url_for('static', filename='images/logo.png')}}"
+					alt="Logo"
+					height="100px"
+					width="100px"
+				/>
+			</div>
+			<ul>
+				<li><a href="/">Button Racer</a></li>
+				<li><a href="/pixel-art">Pixel Art</a></li>
+			</ul>
+		</nav>
+		<main>
+			<h3 class="animate-character" id="hero-text" data-value="Button Racer">
+				Button Racer
+			</h3>
 
-      <div id="quote-container">
-        <div id="output">Press The Button To Generate A Random Quote</div>
-      </div>
-      <h1>
-        Random Number:
-        <span id="random-number"></span>
-        Points: <span id="points">0</span> <!-- New span to display the points -->
-      </h1>
+			<div id="quote-container">
+				<div id="output">Press The Button To Generate A Random Quote</div>
+			</div>
+			<h1>
+				Random Number:
+				<span id="random-number"></span>
+				Points: <span id="points">0</span>
+				<!-- New span to display the points -->
+			</h1>
 
-      <div class="controls">
-        <!-- Button to trigger the generation of a random number -->
-        <button id="generate-button" onclick="fetchRandomNumber()">Generate Random Number</button>
+			<div class="controls">
+				<!-- Button to trigger the generation of a random number -->
+				<button id="generate-button" onclick="fetchRandomNumber()">
+					Generate Random Number
+				</button>
 
-        <!-- Input field to change text and button color -->
-        <div class="color-control">
-          <label for="color-input">Choose a color:</label>
-          <input type="color" id="color-input" placeholder="Enter a color" value="#2ecc71" />
-          <button id="color-button" onclick="changeColor()">Apply Color</button>
-        </div>
-      </div>
-    </main>
-  
-    <script>
-      const randomNumberElement = document.getElementById("random-number");
-      const pointsElement = document.getElementById("points"); // Get the new span
-      const generateButton = document.getElementById('generate-button');
-      const colorButton = document.getElementById('color-button');
-      let points = 0;
-      let timerId = null;
-      let particleNum = 0;
-      function fetchRandomNumber() {
-        fetch("{{ url_for('generate') }}")
-          .then((response) => response.text())
-          .then((data) => {
-            randomNumberElement.innerText = data;
-            moveButton();
-          })
-          .catch((error) => console.error("Error:", error));
-      }
-
-      function moveButton() {
-        const containerWidth = document.body.offsetWidth;
-        const containerHeight = document.body.offsetHeight;
-        const buttonWidth = generateButton.offsetWidth;
-        const buttonHeight = generateButton.offsetHeight;
-
-        const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
-        const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
-
-        generateButton.style.top = `${randomY}px`;
-        generateButton.style.left = `${randomX}px`;
-
-        points++;
-        particleNum++;
-
-        pointsElement.innerText = points; // Update the points
-
-        for (let i = 0; i < points*5; i++) {
-          const particle = document.createElement('div');
-          particle.classList.add('particle');
-          particle.style.left = `${Math.random() * 100}vw`;
-          particle.style.top = `${Math.random() * 100}vh`;
-          particlesContainer.appendChild(particle);
-        }
-
-        if (points === 15 && timerId === null) {
-          timerId = setInterval(() => {
-            const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
-            const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
-            changeColor();
-            generateButton.style.top = `${randomY}px`;
-            generateButton.style.left = `${randomX}px`;
-            const randomColor = getRandomColor(); // Get a random color
-            document.getElementById('color-input').value = randomColor; // Set the color input value
-            changeColor();
-          }, 800);
-          
-        }
-      }
-
-      function getRandomColor() {
-        const r = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
-        const g = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
-        const b = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
-        return `#${r}${g}${b}`;
-      }
-
-      function changeColor() {
-        const colorInput = document.getElementById('color-input').value;
-
-        if (colorInput) {
-          generateButton.style.backgroundColor = colorInput;
-          colorButton.style.backgroundColor = colorInput;
-        }
-      }
-
-      // Create and append particles to the document
-      const particlesContainer = document.querySelector('.particles');
-      for (let i = 0; i < 100; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        particle.style.left = `${Math.random() * 100}vw`;
-        particle.style.top = `${Math.random() * 100}vh`;
-        particlesContainer.appendChild(particle);
-      }
-
-      fetchRandomNumber();
-
-      //Creating a function change background color randomly on button click
-      const button = document.querySelector("#generate-button");
-      let background = document.querySelector("body");
-
-      let backgroundBlob = document.getElementById("blob");
-
-      button.addEventListener("click", () => {
-        let math1 = Math.floor(Math.random() * 256);
-        let math2 = Math.floor(Math.random() * 256);
-        let math3 = Math.floor(Math.random() * 256);
-        let math4 = Math.floor(Math.random() * 256);
-        background.style.background = `rgb(${math1}, ${math2}, ${math3}, ${math4})`;
-        
-        //modify blob color
-
-        let blob1 = math1 - (math1 * (60 / 100));
-        let blob2 = math2 - (math2 * (60 / 100));
-        let blob3 = math3 - (math3 * (60 / 100));
-        let blob4 = math4 - (math4 * (60 / 100));
-        backgroundBlob.style.background = `rgb(${(blob1)}, ${(blob2)}, ${(blob3)}, ${(blob4)})`;
-      });
-
-      //creating random quote on button click
-      let output = document.querySelector("#output");
-      let quote = [
-        "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela",
-        '"The way to get started is to quit talking and begin doing."" -Walt Disney',
-        '"Your time is limited, so dont waste it living someone elses life. Dont be trapped by dogma – which is living with the results of other peoples thinking." -Steve Jobs',
-        '"If life were predictable it would cease to be life, and be without flavor." -Eleanor Roosevelt',
-        '"If you set your goals ridiculously high and its a failure, you will fail above everyone elses success." -James Cameron',
-        '"Life is what happens when youre busy making other plans." -John Lennon',
-        '"Spread love everywhere you go. Let no one ever come to you without leaving happier." -Mother Teresa',
-        '"When you reach the end of your rope, tie a knot in it and hang on." -Franklin D. Roosevelt',
-        '"Always remember that you are absolutely unique. Just like everyone else." -Margaret Mead',
-        '"Dont judge each day by the harvest you reap but by the seeds that you plant." -Robert Louis Stevenson',
-      ];
-      button.addEventListener("click", () => {
-        let random_quote = quote[Math.floor(Math.random() * quote.length)];
-        output.innerHTML = random_quote;
-      });
-
-      let blob = document.getElementById("blob");
-
-      document.body.onpointermove = (event) => {
-          const { clientX, clientY } = event;
-
-          const blobWidth = blob.offsetWidth;
-          const blobHeight = blob.offsetHeight;
-
-          blob.animate(
-              {
-                  left: `${clientX - blobWidth / 2}px`,
-                  top: `${clientY - blobHeight / 2}px`,
-              },
-              { duration: 3000, fill: "forwards" }
-          );
-      };
-
-      let heroText = document.getElementById("hero-text");
-
-      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-      heroText.onmouseover = (event) => {
-        let iterations = 0;
-
-        const interval = setInterval(() => {
-            event.target.textContent = event.target.textContent
-                .split("")
-                .map((letter, index) => {
-                    if (index < iterations) {
-                        return event.target.dataset.value[index];
-                    }
-
-                    return letters[Math.floor(Math.random() * 26)];
-                })
-                .join("");
-
-            if (iterations >= event.target.dataset.value.length) {
-                clearInterval(interval);
-            }
-
-            iterations += 1 / 3;
-        }, 30);
-      };
-    </script>
-  </body>
+				<!-- Input field to change text and button color -->
+				<div class="color-control">
+					<label for="color-input">Choose a color:</label>
+					<input
+						type="color"
+						id="color-input"
+						placeholder="Enter a color"
+						value="#2ecc71"
+					/>
+					<button id="color-button" onclick="changeColor()">Apply Color</button>
+				</div>
+			</div>
+		</main>
+		<script>
+			var generateRandomUrl = "{{ url_for('generate') }}";
+		</script>
+	</body>
 </html>
