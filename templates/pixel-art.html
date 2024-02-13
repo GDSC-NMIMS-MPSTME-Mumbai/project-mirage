@@ -41,17 +41,17 @@
 			<div class="colorwrapper colortext">
 				<div class="color-picker">
 					<label for="colorPicker">Select Color:</label>
-					<input
-				
-						type="color"
-						id="colorPicker"
-						value="#000000"
-					/>
+					<input type="color" id="colorPicker" value="#000000" />
+					<button class="colorpickerbutton" id="colorWheelBtn">
+						Color Mode
+					</button>
 					<button class="colorpickerbutton" id="randomColorBtn">
 						Rainbow Mode
 					</button>
 					<label for="gridSizeSlider">Grid Size:</label>
-					<input type="range" id="gridSizeSlider" min="1" max="69" value="16" />
+					<input type="range" id="gridSizeSlider" min="1" max="50" value="16" />
+					<span id="gridSizeDisplay">16x16</span>
+					<!-- This will display the current grid size -->
 					<button class="colorpickerbutton" id="eraserBtn">Eraser Mode</button>
 					<button class="colorpickerbutton" id="toggleGridBtn">
 						Toggle Grid

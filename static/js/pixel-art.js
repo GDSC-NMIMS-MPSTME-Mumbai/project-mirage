@@ -18,11 +18,11 @@ function createPixels(size) {
 		pixel.classList.add("pixel");
 		pixel.classList.add("cell-border");
 
-		pixel.setAttribute("draggable", "false"); 
+		pixel.setAttribute("draggable", "false");
 		pixel.addEventListener("dragstart", (event) => {
-			event.preventDefault(); 
+			event.preventDefault();
 		});
-		pixel.style.width = `${cellSize}px`; 
+		pixel.style.width = `${cellSize}px`;
 		pixel.style.height = `${cellSize}px`;
 		pixel.addEventListener("mousedown", startDrawing);
 		pixel.addEventListener("mouseenter", draw);
@@ -36,7 +36,6 @@ function startDrawing(event) {
 	draw(event);
 }
 
-// Updated draw function to handle eraser mode and random mode
 function draw(event) {
 	if (!isMouseDown) return;
 	if (isEraserMode) {
@@ -44,7 +43,7 @@ function draw(event) {
 	} else if (isRandomMode) {
 		const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
 		event.target.style.backgroundColor = randomColor;
-	} else {
+	} else if (isColorSelectionMode) {
 		event.target.style.backgroundColor = currentColor;
 	}
 }
@@ -53,18 +52,29 @@ function stopDrawing() {
 	isMouseDown = false;
 }
 
-// Event listener for the grid size slider
 gridSizeSlider.addEventListener("input", (event) => {
 	gridSize = parseInt(event.target.value, 10);
 	createPixels(gridSize);
+
+	// Display the grid size next to the slider
+	const gridSizeDisplay = document.getElementById("gridSizeDisplay");
+	if (gridSizeDisplay) {
+		gridSizeDisplay.textContent = `${gridSize}x${gridSize}`;
+	}
 });
 
+// Event listener for the color selection mode button
+// Event listener for the color selection mode button
 document.getElementById("colorPicker").addEventListener("input", (event) => {
 	currentColor = event.target.value;
+	isColorSelectionMode = true; // Set color selection mode to active
+	isRandomMode = false; // Deactivate random mode
+	isEraserMode = false; // Deactivate eraser mode
 });
 
 let isEraserMode = false; // Flag to check if eraser mode is active
 let isRandomMode = false; // Flag to check if random mode is active
+let isColorSelectionMode = true;
 let showCellBorders = true; // Flag to check if cell borders should be shown
 
 // Function to toggle cell borders
@@ -99,17 +109,31 @@ function setRandomColorForEachPixel() {
 	});
 }
 
+// Event listener for the color wheel mode button
+document.getElementById("colorWheelBtn").addEventListener("click", () => {
+	isColorSelectionMode = true;
+	isRandomMode = false;
+	isEraserMode = false;
+});
+
 document
 	.getElementById("toggleGridBtn")
 	.addEventListener("click", toggleCellBorders);
 document
 	.getElementById("clearCanvasBtn")
 	.addEventListener("click", clearCanvas);
+// Event listener for the random color mode button
 document.getElementById("randomColorBtn").addEventListener("click", () => {
 	isRandomMode = !isRandomMode;
+	isColorSelectionMode = !isRandomMode; // Set color selection mode to active if random mode is off
+	isEraserMode = false; // Deactivate eraser mode
 });
+
+// Event listener for the eraser mode button
 document.getElementById("eraserBtn").addEventListener("click", () => {
 	isEraserMode = !isEraserMode;
+	isColorSelectionMode = !isEraserMode; // Set color selection mode to active if eraser mode is off
+	isRandomMode = false; // Deactivate random mode
 });
 
 board.addEventListener("mouseleave", stopDrawing);
