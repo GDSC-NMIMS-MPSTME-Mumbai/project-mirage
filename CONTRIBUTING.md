@@ -1,6 +1,6 @@
 # Project Mirage Contribution Guide
 
-   This file explains how to set-up and run the project locally
+This file explains how to set-up and run the project locally
 
 
 ## Prerequisites
