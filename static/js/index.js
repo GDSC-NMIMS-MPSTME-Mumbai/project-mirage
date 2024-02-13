@@ -168,7 +168,7 @@ heroText.onmouseover = (event) => {
 	let iterations = 0;
 
 	const interval = setInterval(() => {
-		event.target.textContent = event.target.textContent
+		event.target.textContent = "Button Racer"
 			.split("")
 			.map((letter, index) => {
 				if (index < iterations) {
