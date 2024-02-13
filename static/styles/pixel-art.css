@@ -131,7 +131,7 @@ nav ul li a:hover {
 }
 
 #drawingBoard {
-	width: 500px; /* Adjust this value to your desired fixed width */
+	width: 500px; 
 	display: grid;
 	margin: 20px auto;
 	border: 2px solid #000;
