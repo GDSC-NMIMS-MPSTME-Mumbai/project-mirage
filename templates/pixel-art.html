@@ -2,67 +2,60 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Pixel Art</title>
-		<link
-			rel="stylesheet"
-			href="{{ url_for('static', filename='styles/pixel-art.css') }}"
-		/>
-		<script
-			defer
-			src="{{ url_for('static', filename='js/pixel-art.js') }}"
-		></script>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-			rel="stylesheet"
-		/>
-	</head>
-	<body>
-		<nav>
-			<div class="logo">
-				<img
-					src="{{url_for('static', filename='images/logo.png')}}"
-					alt="Logo"
-					height="100px"
-					width="100px"
-				/>
-			</div>
-			<ul>
-				<li><a href="/">Button Racer</a></li>
-				<li><a href="/pixel-art">Pixel Art</a></li>
-        <li><a href="/filter">Filter Image</a></li>
-			</ul>
-		</nav>
-		<h2 class="title colortext">Pixel Art</h2>
-		<main>
-			<div class="colorwrapper colortext">
-				<div class="color-picker">
-					<label for="colorPicker">Select Color:</label>
-					<input type="color" id="colorPicker" value="#000000" />
-					<button class="colorpickerbutton" id="colorWheelBtn">
-						Color Mode
-					</button>
-					<button class="colorpickerbutton" id="randomColorBtn">
-						Rainbow Mode
-					</button>
-					<label for="gridSizeSlider">Grid Size:</label>
-					<input type="range" id="gridSizeSlider" min="1" max="50" value="16" />
-					<span id="gridSizeDisplay">16x16</span>
-					<!-- This will display the current grid size -->
-					<button class="colorpickerbutton" id="eraserBtn">Eraser Mode</button>
-					<button class="colorpickerbutton" id="toggleGridBtn">
-						Toggle Grid
-					</button>
-					<button class="colorpickerbutton" id="clearCanvasBtn">
-						Clear Canvas
-					</button>
-				</div>
-				<div id="drawingBoard"></div>
-			</div>
-		</main>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixel Art</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/pixel-art.css') }}"
+    />
+    <script
+      defer
+      src="{{ url_for('static', filename='js/pixel-art.js') }}"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    {% include "_navbar.html" %}
+    <h2 class="title colortext">Pixel Art</h2>
+    <main>
+      <div class="colorwrapper colortext">
+        <div class="color-picker">
+          <label for="colorPicker">Select Color:</label>
+          <input type="color" id="colorPicker" value="#000000" />
+          <button class="colorpickerbutton" id="colorWheelBtn">
+            Color Mode
+          </button>
+          <button class="colorpickerbutton" id="randomColorBtn">
+            Rainbow Mode
+          </button>
+          <label for="gridSizeSlider">Grid Size:</label>
+          <input
+            type="range"
+            id="gridSizeSlider"
+            min="10"
+            max="50"
+            value="16"
+          />
+          <span id="gridSizeDisplay">16x16</span>
+          <!-- This will display the current grid size -->
+          <button class="colorpickerbutton" id="eraserBtn">Eraser Mode</button>
+          <button class="colorpickerbutton" id="toggleGridBtn">
+            Toggle Grid
+          </button>
+          <button class="colorpickerbutton" id="clearCanvasBtn">
+            Clear Canvas
+          </button>
+          <button type="button" id="downloadBtn">Download</button>
+        </div>
+        <div id="drawingBoard"></div>
+      </div>
+    </main>
+  </body>
 </html>
