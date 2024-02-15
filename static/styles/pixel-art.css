@@ -6,6 +6,7 @@ body {
 	align-items: center;
 	justify-content: flex-start;
 	min-height: 100vh;
+	background: #000;
 }
 
 main {
@@ -21,7 +22,7 @@ button,
 label {
 	margin: 10px;
 	padding: 8px;
-	color: #333;
+	color: #fbf7f7;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
@@ -29,18 +30,16 @@ label {
 }
 
 h1 {
-	background-color: #3498db;
 	align-self: stretch;
 	text-align: center;
 }
 
 button {
-	background-color: #2ecc71;
+	background-color: #0fe6e6;
 }
 
 label {
 	padding: 0;
-	background-color: white;
 }
 
 .controls {
@@ -134,7 +133,7 @@ nav ul li a:hover {
 	width: 500px;
 	display: grid;
 	margin: 20px auto;
-	border: 2px solid #000;
+	border: 2px solid #ddd;
 }
 .pixel {
 	width: 10px;
@@ -171,10 +170,7 @@ nav ul li a:hover {
 	height: 100%;
 }
 
-.colorpickerbutton {
-	background-color: #a2d2ff;
-	border: 2px solid #003049;
-}
+
 
 .cell-border {
 	border: 1px solid #ddd;
@@ -182,7 +178,7 @@ nav ul li a:hover {
 
 .colortext {
 	font-family: inter;
-	color: #003049;
+	color: rgb(18, 219, 212);
 }
 
 #colorPicker {

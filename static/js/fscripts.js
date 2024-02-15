@@ -6,6 +6,8 @@ let rainbowImg = null;
 let frameImg = null;
 let reset = null;
 let canvas1 = document.getElementById("can1");
+let download = document.getElementById("downloadBtn");
+download.addEventListener("click", downloadImage);
 
 function load() {
   let fileinput = document.getElementById("image");
@@ -17,6 +19,23 @@ function load() {
   frameImg = new SimpleImage(fileinput);
   reset = new SimpleImage(fileinput);
   image.drawTo(canvas1);
+}
+function downloadImage() {
+  // Grab the canvas element
+  let canvas = document.getElementById("canvas");
+
+  /* Create a PNG image of the pixels drawn on the canvas using the toDataURL method. PNG is the preferred format since it is supported by all browsers
+   */
+  var dataURL = canvas1.toDataURL("image/png");
+
+  // Create a dummy link text
+  var a = document.createElement("a");
+  // Set the link to the image so that when clicked, the image begins downloading
+  a.href = dataURL;
+  // Specify the image filename
+  a.download = "canvas-download.jpeg";
+  // Click on the link to set off download
+  a.click();
 }
 
 function doGray() {
@@ -47,7 +66,16 @@ function doFrame() {
   let height = frameImg.getHeight();
   let width = frameImg.getWidth();
   for (let pixel of frameImg.values()) {
-    if (pixel.getY() > height - 30 || pixel.getY() < 30 || pixel.getX() > width - 30 || pixel.getX() < 30) { pixel.setRed(128); pixel.setGreen(128); pixel.setBlue(0); }
+    if (
+      pixel.getY() > height - 30 ||
+      pixel.getY() < 30 ||
+      pixel.getX() > width - 30 ||
+      pixel.getX() < 30
+    ) {
+      pixel.setRed(128);
+      pixel.setGreen(128);
+      pixel.setBlue(0);
+    }
   }
   frameImg.drawTo(canvas1);
   alert("Frame filter is applying. Click OK to proceed.");
@@ -57,7 +85,7 @@ function doClear() {
   notloaded();
   for (let pixel of reset.values()) {
     let Pixels = image.getPixel(pixel.getX(), pixel.getY());
-    reset.setPixel(pixel.getX(), pixel.getY(), Pixels)
+    reset.setPixel(pixel.getX(), pixel.getY(), Pixels);
   }
   reset.drawTo(canvas1);
 }
@@ -75,42 +103,42 @@ function doRainbow() {
       pixel.setGreen(0);
       pixel.setBlue(0);
     }
-    if (y > (height / 10) && y < (2 * height / 10)) {
+    if (y > height / 10 && y < (2 * height) / 10) {
       pixel.setRed(2 * avg);
       pixel.setGreen(avg);
       pixel.setBlue(0);
     }
-    if (y > (2 * height / 10) && y < (3 * height / 10)) {
+    if (y > (2 * height) / 10 && y < (3 * height) / 10) {
       pixel.setRed(2 * avg);
       pixel.setGreen(2 * avg);
       pixel.setBlue(0);
     }
-    if (y > (3 * height / 10) && y < (4 * height / 10)) {
+    if (y > (3 * height) / 10 && y < (4 * height) / 10) {
       pixel.setRed(0);
       pixel.setGreen(2 * avg);
       pixel.setBlue(0);
     }
-    if (y > (4 * height / 10) && y < (5 * height / 10)) {
+    if (y > (4 * height) / 10 && y < (5 * height) / 10) {
       pixel.setRed(0);
       pixel.setGreen(2 * avg);
       pixel.setBlue(avg);
     }
-    if (y > (5 * height / 10) && y < (6 * height / 10)) {
+    if (y > (5 * height) / 10 && y < (6 * height) / 10) {
       pixel.setRed(0);
       pixel.setGreen(2 * avg);
       pixel.setBlue(2 * avg);
     }
-    if (y > (6 * height / 10) && y < (7 * height / 10)) {
+    if (y > (6 * height) / 10 && y < (7 * height) / 10) {
       pixel.setRed(0);
       pixel.setGreen(0);
       pixel.setBlue(2 * avg);
     }
-    if (y > (7 * height / 10) && y < (8 * height / 10)) {
+    if (y > (7 * height) / 10 && y < (8 * height) / 10) {
       pixel.setRed(avg);
       pixel.setGreen(0);
       pixel.setBlue(avg);
     }
-    if (y > (8 * height / 10) && y < (9 * height / 10)) {
+    if (y > (8 * height) / 10 && y < (9 * height) / 10) {
       pixel.setRed(avg);
       pixel.setGreen(avg);
       pixel.setBlue(avg);

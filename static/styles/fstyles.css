@@ -1,7 +1,12 @@
 body {
-  background-color: #f0f0f0; /* Light gray background */
+  background-color: black; /* Light gray background */
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 nav {
@@ -42,14 +47,14 @@ nav ul li a:hover {
   color: #3498db;
 }
 
-h1, h2 {
-  color: #333; /* Dark gray text */
+h1,
+h2 {
+  color: #0575bf;
   margin: 20px;
 }
 
 canvas {
-  border: 5px solid #555; /* Dark gray border */
-  background-color: #fff; /* White canvas background */
+  border: 2px solid #fafafa;
   width: 100%;
   max-width: 750px;
   display: block;
@@ -58,15 +63,12 @@ canvas {
 
 input {
   font-size: 12pt;
-  background-color: #4CAF50; /* Green button background */
-  color: #fff; /* White text on button */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0db3b6;
+  color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 5px;
   padding: 8px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-}
-
-input:hover {
-  background-color: #45a049; /* Darker green on hover */
 }

@@ -2,74 +2,41 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Homepage</title>
-		<link
-			rel="stylesheet"
-			href="{{ url_for('static', filename='styles/index.css') }}"
-		/>
-		<script
-			defer
-			src="{{ url_for('static', filename='js/index.js') }}"
-		></script>
-	</head>
-	<body>
-		<div id="blob"></div>
-		<div id="blur"></div>
-		<div class="particles"></div>
-		<nav>
-			<div class="logo">
-				<img
-					src="{{url_for('static', filename='images/logo.png')}}"
-					alt="Logo"
-					height="100px"
-					width="100px"
-				/>
-			</div>
-			<ul>
-				<li><a href="/">Button Racer</a></li>
-				<li><a href="/pixel-art">Pixel Art</a></li>
-        <li><a href="/filter">Filter Image</a></li>
-			</ul>
-		</nav>
-		<main>
-			<h3 class="animate-character" id="hero-text" data-value="Button Racer">
-				Button Racer
-			</h3>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/index.css') }}"
+    />
+    <script
+      defer
+      src="{{ url_for('static', filename='js/index.js') }}"
+    ></script>
+  </head>
+  <body>
+    <div id="blob"></div>
+    <div id="blur"></div>
+    <div class="particles"></div>
+    {% include "_navbar.html" %}
+    <main>
+      <h3 class="animate-character" id="hero-text" data-value="Button Racer">
+        Button Racer
+      </h3>
 
-			<div id="quote-container">
-				<div id="output">Press The Button To Generate A Random Quote</div>
-			</div>
-			<h1>
-				Random Number:
-				<span id="random-number"></span>
-				Points: <span id="points">0</span>
-				<!-- New span to display the points -->
-			</h1>
+      <h1>
+        Points:
+        <span id="points">0</span>
+        Level:
+        <span id="level">1</span>
+      </h1>
 
-			<div class="controls">
-				<!-- Button to trigger the generation of a random number -->
-				<button id="generate-button" onclick="fetchRandomNumber()">
-					Generate Random Number
-				</button>
-
-				<!-- Input field to change text and button color -->
-				<div class="color-control">
-					<label for="color-input">Choose a color:</label>
-					<input
-						type="color"
-						id="color-input"
-						placeholder="Enter a color"
-						value="#2ecc71"
-					/>
-					<button id="color-button" onclick="changeColor()">Apply Color</button>
-				</div>
-			</div>
-		</main>
-		<script>
-			var generateRandomUrl = "{{ url_for('generate') }}";
-		</script>
-	</body>
+      <div class="controls">
+        <button id="game-button" tabindex="-1" onclick="moveButton()">
+          Catch Me If You Can
+        </button>
+      </div>
+    </main>
+  </body>
 </html>
