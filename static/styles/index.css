@@ -15,19 +15,21 @@ body {
 
 @keyframes rotateBlob {
   from {
-      -moz-transform: rotate(0deg);
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
+
   50% {
-      -moz-transform: scale(1, 1.619) rotate(180deg);
-      -webkit-transform: scale(1, 1.619) rotate(180deg);
-      transform: scale(1, 1.619) rotate(180deg);
+    -moz-transform: scale(1, 1.619) rotate(180deg);
+    -webkit-transform: scale(1, 1.619) rotate(180deg);
+    transform: scale(1, 1.619) rotate(180deg);
   }
+
   to {
-      -moz-transform: rotate(359deg);
-      -webkit-transform: rotate(359deg);
-      transform: rotate(359deg);
+    -moz-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
   }
 }
 
@@ -78,6 +80,10 @@ body::before {
   opacity: 0.5;
 }
 
+.stopwatch {
+  color: white;
+}
+
 .particle {
   position: absolute;
   width: 8px;
@@ -96,17 +102,51 @@ body::before {
   padding-bottom: 1rem;
 }
 
+#modal {
+  z-index: 50 !important;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+
+}
+
+
+#close:hover {
+  cursor: pointer;
+}
+
+.modal-content {
+  z-index: 50;
+  color: white;
+  background-color: #161834;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid black;
+  width: 60%;
+}
+
 @keyframes moveParticle {
+
   0%,
   25% {
     transform: translate(0, 0);
   }
+
   50% {
     transform: translate(100%, 100%);
   }
+
   75% {
     transform: translate(-100%, -100%);
   }
+
   100% {
     transform: translate(0, 0);
   }
@@ -156,10 +196,21 @@ label {
   align-items: flex-start;
 }
 
+.stopwatch {
+  /* align this to center */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .color-control {
   display: flex;
   align-items: center;
 }
+
 #game-button {
   position: absolute;
   transition: top 0.2s, left 0.2s;
@@ -173,6 +224,7 @@ label {
   padding: 10px;
   font-size: 16px;
 }
+
 @media screen and (max-width: 700px) {
   .color-control {
     width: 150px;
@@ -180,7 +232,7 @@ label {
     align-items: flex-start;
   }
 
-  .color-control > * {
+  .color-control>* {
     margin-left: 10px;
   }
 }
@@ -197,13 +249,11 @@ label {
 
 .animate-character {
   text-transform: uppercase;
-  background-image: linear-gradient(
-    -225deg,
-    #231557 0%,
-    #44107a 29%,
-    #ff1361 67%,
-    #fff800 100%
-  );
+  background-image: linear-gradient(-225deg,
+      #231557 0%,
+      #44107a 29%,
+      #ff1361 67%,
+      #fff800 100%);
   background-size: auto auto;
   background-clip: border-box;
   background-size: 200% auto;
@@ -236,13 +286,14 @@ nav {
   z-index: 2;
 }
 
-.logo, .nav-text {
+.logo,
+.nav-text {
   display: inline-flex;
   align-items: center;
 }
 
 .logo img {
-  height: 80px; 
+  height: 80px;
   width: 80px;
 }
 
@@ -259,18 +310,18 @@ nav ul li {
 
 nav ul li a {
   text-decoration: none;
-  color: #fff; 
+  color: #fff;
   transition: color 0.3s ease;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 nav ul li a:hover {
-  color: #3498db; 
+  color: #3498db;
 }
 
 .nav-text {
-  font-size: 40px; 
+  font-size: 40px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: white; 
-  margin-left: 20px;  
+  color: white;
+  margin-left: 20px;
 }
