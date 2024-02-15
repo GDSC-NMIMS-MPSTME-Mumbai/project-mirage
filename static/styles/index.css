@@ -160,7 +160,7 @@ label {
   display: flex;
   align-items: center;
 }
-#generate-button {
+#game-button {
   position: absolute;
   transition: top 0.2s, left 0.2s;
   z-index: 4;
