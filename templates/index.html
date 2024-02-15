@@ -26,23 +26,18 @@
       </h3>
 
       <h1>
-        Random Number:
-        <span id="random-number"></span>
-        Points: <span id="points">0</span>
+        Points:
+        <span id="points">0</span>
         Level:
         <span id="level">1</span>
         <!-- New span to display the points -->
       </h1>
 
       <div class="controls">
-        <!-- Button to trigger the generation of a random number -->
-        <button id="generate-button" onclick="fetchRandomNumber()">
-          Generate Random Number
+        <button id="game-button">
+          Click Me
         </button>
       </div>
     </main>
-    <script>
-      var generateRandomUrl = "{{ url_for('generate') }}";
-    </script>
   </body>
 </html>

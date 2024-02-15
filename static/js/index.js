@@ -1,32 +1,22 @@
-const randomNumberElement = document.getElementById("random-number");
 const pointsElement = document.getElementById("points"); // Get the new span
 const levelElement = document.getElementById("level"); // Get the new span
-const generateButton = document.getElementById("generate-button");
+const gameButton = document.getElementById("game-button");
 const colorButton = document.getElementById("color-button");
 const containerWidth = document.body.offsetWidth;
 const containerHeight = document.body.offsetHeight;
-const buttonWidth = generateButton.offsetWidth;
-const buttonHeight = generateButton.offsetHeight;
+const buttonWidth = gameButton.offsetWidth;
+const buttonHeight = gameButton.offsetHeight;
 let points = 0;
 let level = 1;
 let timerId = null;
 let particleNum = 0;
 
-function fetchRandomNumber() {
-  fetch(generateRandomUrl)
-    .then((response) => response.text())
-    .then((data) => {
-      randomNumberElement.innerText = data;
-      moveButton();
-    })
-    .catch((error) => console.error("Error:", error));
-}
 function moveRandom() {
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
   const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
   changeColor();
-  generateButton.style.top = `${randomY}px`;
-  generateButton.style.left = `${randomX}px`;
+  gameButton.style.top = `${randomY}px`;
+  gameButton.style.left = `${randomX}px`;
 
   changeColor();
 }
@@ -34,8 +24,8 @@ function moveButton() {
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
   const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
 
-  generateButton.style.top = `${randomY}px`;
-  generateButton.style.left = `${randomX}px`;
+  gameButton.style.top = `${randomY}px`;
+  gameButton.style.left = `${randomX}px`;
 
   points++;
   if (points % 5 == 0) {
