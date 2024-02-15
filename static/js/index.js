@@ -1,11 +1,11 @@
 const pointsElement = document.getElementById("points"); // Get the new span
 const levelElement = document.getElementById("level"); // Get the new span
-const gameButton = document.getElementById("game-button");
+const generateButton = document.getElementById("generate-button");
 const colorButton = document.getElementById("color-button");
 const containerWidth = document.body.offsetWidth;
 const containerHeight = document.body.offsetHeight;
-const buttonWidth = gameButton.offsetWidth;
-const buttonHeight = gameButton.offsetHeight;
+const buttonWidth = generateButton.offsetWidth;
+const buttonHeight = generateButton.offsetHeight;
 let points = 0;
 let level = 1;
 let timerId = null;
@@ -14,48 +14,34 @@ let particleNum = 0;
 function moveRandom() {
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
   const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
-  changeColor();
-  gameButton.style.top = `${randomY}px`;
-  gameButton.style.left = `${randomX}px`;
-
-  changeColor();
+  generateButton.style.top = `${randomY}px`;
+  generateButton.style.left = `${randomX}px`;
 }
+
 function moveButton() {
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
   const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
 
-  gameButton.style.top = `${randomY}px`;
-  gameButton.style.left = `${randomX}px`;
+  generateButton.style.top = `${randomY}px`;
+  generateButton.style.left = `${randomX}px`;
 
   points++;
   if (points % 5 == 0) {
     level++;
+    if (points === 5 && timerId === null) {
+      timerId = setInterval(() => {
+        moveRandom();
+      }, 4000);
+    } else {
+      clearInterval(timerId);
+      timerId = setInterval(() => {
+        moveRandom();
+      }, (8000 / level));
+    }
   }
-  particleNum++;
 
   pointsElement.innerText = points; // Update the points
   levelElement.innerText = level;
-
-  for (let i = 0; i < points * 5; i++) {
-    const particle = document.createElement("div");
-    particle.classList.add("particle");
-    particle.style.left = `${Math.random() * 100}vw`;
-    particle.style.top = `${Math.random() * 100}vh`;
-    particlesContainer.appendChild(particle);
-  }
-
-  if (points === 5 && timerId === null) {
-    timerId = setInterval(() => {
-      moveRandom();
-      level++;
-    }, 4000);
-  } else if (points === 15) {
-    clearInterval(timerId);
-    level++;
-    timerId = setInterval(() => {
-      moveRandom();
-    }, 2000);
-  }
 }
 
 // Create and append particles to the document
@@ -68,7 +54,7 @@ for (let i = 0; i < 100; i++) {
   particlesContainer.appendChild(particle);
 }
 
-fetchRandomNumber();
+moveButton();
 
 //Creating a function change background color randomly on button click
 const button = document.querySelector("#generate-button");
