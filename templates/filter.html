@@ -27,16 +27,18 @@
       </p>
       <h2>Choose Filter</h2>
       <p>
-        <input type="button" value="Grayscale" onclick="doGray()" />
-        <input type="button" value="Red" onclick="doRed()" />
-        <input type="button" value="Blur" onclick="doBlur()" />
-        <input type="button" value="Rainbow" onclick="doRainbow()" />
+        <input type="button" value="Grayscale" onclick="getImage('grayScale')" />
+        <input type="button" value="Red" onclick="getImage('red')" />
+        <input type="button" value="Blue" onclick="getImage('blue')" />
+        <input type="button" value="Green" onclick="getImage('green')" />
+        <input type="button" value="Blur" onclick="getImage('blur')" />
+        <input type="button" value="Rainbow" onclick="getImage('rainbow')" />
         <input
           type="button"
           value="Edge Detection"
-          onclick="doEdgeDetection()"
+          onclick="getImage('edgeDetection')"
         />
-        <input type="button" value="Frame" onclick="doFrame()" />
+        <input type="button" value="Frame" onclick="getImage('frame')" />
       </p>
       <p>
         <input

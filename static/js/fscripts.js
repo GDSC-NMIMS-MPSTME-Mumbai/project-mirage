@@ -8,10 +8,45 @@ let reset = null;
 let canvas1 = document.getElementById("can1");
 let download = document.getElementById("downloadBtn");
 download.addEventListener("click", downloadImage);
+let pixelArray = [];
 
-function load()
-{
+function load() {
   let fileinput = document.getElementById("image");
+
+  // convert the file to array of pixels
+
+  let file = fileinput.files[0];
+  let reader = new FileReader();
+  reader.onload = function (event) {
+    let img = new Image();
+    img.onload = function () {
+      let canvas = document.createElement("canvas");
+      let context = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const width = img.width;
+      const height = img.height;
+      context.drawImage(img, 0, 0);
+      let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      let pixels = imageData.data;
+      for (let i = 0; i<width; i++) {
+        let row = [];
+        for (let j = 0; j<height; j++) {
+          let index = (i + j * width) * 4;
+          let r = pixels[index];
+          let g = pixels[index + 1];
+          let b = pixels[index + 2];
+          let a = pixels[index + 3];
+          let pixel = [r, g, b]
+          row.push(pixel);
+        }
+        pixelArray.push(row);
+      }
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+
   image = new SimpleImage(fileinput);
   grayImg = new SimpleImage(fileinput);
   redImg = new SimpleImage(fileinput);
@@ -21,8 +56,7 @@ function load()
   reset = new SimpleImage(fileinput);
   image.drawTo(canvas1);
 }
-function downloadImage()
-{
+function downloadImage() {
   // Grab the canvas element
   let canvas = document.getElementById("canvas");
 
@@ -40,11 +74,47 @@ function downloadImage()
   a.click();
 }
 
-function doGray()
+function getImage(filterName)
 {
-  notloaded();
-  for (let pixel of grayImg.values())
+  // send the pixel array to the server
+  fetch(`/filter/${filterName}`, {
+    method: "POST",
+    body: JSON.stringify({ pixelArray: pixelArray }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) =>
   {
+    response.json().then((data) =>
+    {
+      // data is array of pixels
+      let canvas = document.getElementById("can1");
+      let context = canvas.getContext("2d");
+      const width = data.length;
+      const height = data[0].length;
+      canvas.width = width;
+      canvas.height = height;
+      for (let i = 0; i<width; i++) {
+        for (let j = 0; j<height; j++) {
+          let pixel = data[i][j];
+          if (typeof pixel === "number") {
+            context.fillStyle = `rgb(${pixel}, ${pixel}, ${pixel})`;
+            context.fillRect(i, j, 1, 1);
+          }
+          else
+          {
+            context.fillStyle = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+            context.fillRect(i, j, 1, 1);
+          }
+        }
+      }
+    });
+  });
+}
+
+function doGray() {
+  notloaded();
+  for (let pixel of grayImg.values()) {
     let avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
     pixel.setRed(avg);
     pixel.setGreen(avg);
@@ -52,15 +122,13 @@ function doGray()
   }
   grayImg.drawTo(canvas1);
   alert("Grayscale filter is applying. Click OK to proceed.");
+  console.log(grayImg.values());
 }
 
-function doRed()
-{
+function doRed() {
   notloaded();
-  for (let pixel of redImg.values())
-  {
-    if (pixel.getRed() < 250)
-    {
+  for (let pixel of redImg.values()) {
+    if (pixel.getRed() < 250) {
       pixel.setRed(250);
     }
   }
@@ -68,20 +136,17 @@ function doRed()
   alert("Red filter is applying. Click OK to proceed.");
 }
 
-function doFrame()
-{
+function doFrame() {
   notloaded();
   let height = frameImg.getHeight();
   let width = frameImg.getWidth();
-  for (let pixel of frameImg.values())
-  {
+  for (let pixel of frameImg.values()) {
     if (
       pixel.getY() > height - 30 ||
       pixel.getY() < 30 ||
       pixel.getX() > width - 30 ||
       pixel.getX() < 30
-    )
-    {
+    ) {
       pixel.setRed(128);
       pixel.setGreen(128);
       pixel.setBlue(0);
@@ -91,77 +156,64 @@ function doFrame()
   alert("Frame filter is applying. Click OK to proceed.");
 }
 
-function doClear()
-{
+function doClear() {
   notloaded();
-  for (let pixel of reset.values())
-  {
+  for (let pixel of reset.values()) {
     let Pixels = image.getPixel(pixel.getX(), pixel.getY());
     reset.setPixel(pixel.getX(), pixel.getY(), Pixels);
   }
   reset.drawTo(canvas1);
 }
 
-function doRainbow()
-{
+function doRainbow() {
   notloaded();
   let width = rainbowImg.getWidth();
   let height = rainbowImg.getHeight();
-  for (let pixel of rainbowImg.values())
-  {
+  for (let pixel of rainbowImg.values()) {
     let x = pixel.getX();
     let y = pixel.getY();
     let avg = (pixel.getRed() + pixel.getGreen() + pixel.getGreen()) / 3;
-    if (y < height / 10)
-    {
+    if (y < height / 10) {
       pixel.setRed(2 * avg);
       pixel.setGreen(0);
       pixel.setBlue(0);
     }
-    if (y > height / 10 && y < (2 * height) / 10)
-    {
+    if (y > height / 10 && y < (2 * height) / 10) {
       pixel.setRed(2 * avg);
       pixel.setGreen(avg);
       pixel.setBlue(0);
     }
-    if (y > (2 * height) / 10 && y < (3 * height) / 10)
-    {
+    if (y > (2 * height) / 10 && y < (3 * height) / 10) {
       pixel.setRed(2 * avg);
       pixel.setGreen(2 * avg);
       pixel.setBlue(0);
     }
-    if (y > (3 * height) / 10 && y < (4 * height) / 10)
-    {
+    if (y > (3 * height) / 10 && y < (4 * height) / 10) {
       pixel.setRed(0);
       pixel.setGreen(2 * avg);
       pixel.setBlue(0);
     }
-    if (y > (4 * height) / 10 && y < (5 * height) / 10)
-    {
+    if (y > (4 * height) / 10 && y < (5 * height) / 10) {
       pixel.setRed(0);
       pixel.setGreen(2 * avg);
       pixel.setBlue(avg);
     }
-    if (y > (5 * height) / 10 && y < (6 * height) / 10)
-    {
+    if (y > (5 * height) / 10 && y < (6 * height) / 10) {
       pixel.setRed(0);
       pixel.setGreen(2 * avg);
       pixel.setBlue(2 * avg);
     }
-    if (y > (6 * height) / 10 && y < (7 * height) / 10)
-    {
+    if (y > (6 * height) / 10 && y < (7 * height) / 10) {
       pixel.setRed(0);
       pixel.setGreen(0);
       pixel.setBlue(2 * avg);
     }
-    if (y > (7 * height) / 10 && y < (8 * height) / 10)
-    {
+    if (y > (7 * height) / 10 && y < (8 * height) / 10) {
       pixel.setRed(avg);
       pixel.setGreen(0);
       pixel.setBlue(avg);
     }
-    if (y > (8 * height) / 10 && y < (9 * height) / 10)
-    {
+    if (y > (8 * height) / 10 && y < (9 * height) / 10) {
       pixel.setRed(avg);
       pixel.setGreen(avg);
       pixel.setBlue(avg);
@@ -171,21 +223,18 @@ function doRainbow()
   alert("Rainbow filter is applying. Click OK to proceed.");
 }
 
-function doBlur()
-{
+function doBlur() {
   notloaded();
   let width = blurImg.getWidth();
   let height = blurImg.getHeight();
-  for (let pixel of blurImg.values())
-  {
+  for (let pixel of blurImg.values()) {
     let num = Math.random();
     let dot = Math.ceil(num * 10);
     let x = pixel.getX();
     let y = pixel.getY();
     let newX = Math.min(x + dot, width - 1);
     let newY = Math.min(y + dot, height - 1);
-    if (num < 5)
-    {
+    if (num < 5) {
       let pixel2 = blurImg.getPixel(newX, newY);
       blurImg.setPixel(x, y, pixel2);
     }
@@ -194,32 +243,23 @@ function doBlur()
   alert("Blur filter is applying. Click OK to proceed.");
 }
 
-function doEdgeDetection()
-{
-
-  function checkIfCornerPixel(image, x, y)
-  {
-    if (x == 0 || y == 0)
-    {
+function doEdgeDetection() {
+  function checkIfCornerPixel(image, x, y) {
+    if (x == 0 || y == 0) {
       return true;
     }
-    if (x == image.getWidth() - 1 || y == image.getHeight() - 1)
-    {
+    if (x == image.getWidth() - 1 || y == image.getHeight() - 1) {
       return true;
     }
     return false;
   }
 
-
-  function robertsFilter(image)
-  {
+  function robertsFilter(image) {
     let output = new SimpleImage(image.getWidth(), image.getHeight());
-    for (let pixel of image.values())
-    {
+    for (let pixel of image.values()) {
       let x = pixel.getX();
       let y = pixel.getY();
-      if (checkIfCornerPixel(image, x, y))
-      {
+      if (checkIfCornerPixel(image, x, y)) {
         output.setPixel(x, y, output.getPixel(x, y));
         continue;
       }
@@ -231,15 +271,12 @@ function doEdgeDetection()
     return output;
   }
 
-  function prewittFilter(image)
-  {
+  function prewittFilter(image) {
     let output = new SimpleImage(image.getWidth(), image.getHeight());
-    for (let pixel of image.values())
-    {
+    for (let pixel of image.values()) {
       let x = pixel.getX();
       let y = pixel.getY();
-      if (checkIfCornerPixel(image, x, y))
-      {
+      if (checkIfCornerPixel(image, x, y)) {
         output.setPixel(x, y, output.getPixel(x, y));
         continue;
       }
@@ -253,15 +290,12 @@ function doEdgeDetection()
     return output;
   }
 
-  function sobelFilter(image)
-  {
+  function sobelFilter(image) {
     let output = new SimpleImage(image.getWidth(), image.getHeight());
-    for (let pixel of image.values())
-    {
+    for (let pixel of image.values()) {
       let x = pixel.getX();
       let y = pixel.getY();
-      if (checkIfCornerPixel(image, x, y))
-      {
+      if (checkIfCornerPixel(image, x, y)) {
         output.setPixel(x, y, output.getPixel(x, y));
         continue;
       }
@@ -271,15 +305,15 @@ function doEdgeDetection()
       let bottomRightPixel = image.getPixel(x + 1, y + 1);
       let diffX = Math.abs(
         topLeftPixel.getRed() +
-        2 * topRightPixel.getRed() +
-        bottomLeftPixel.getRed() -
-        2 * bottomRightPixel.getRed()
+          2 * topRightPixel.getRed() +
+          bottomLeftPixel.getRed() -
+          2 * bottomRightPixel.getRed()
       );
       let diffY = Math.abs(
         topLeftPixel.getRed() +
-        2 * bottomLeftPixel.getRed() +
-        topRightPixel.getRed() -
-        2 * bottomRightPixel.getRed()
+          2 * bottomLeftPixel.getRed() +
+          topRightPixel.getRed() -
+          2 * bottomRightPixel.getRed()
       );
       let diff = Math.sqrt(diffX * diffX + diffY * diffY);
       output.getPixel(x, y).setRed(diff);
@@ -294,12 +328,10 @@ function doEdgeDetection()
   let prewitt = prewittFilter(image);
   let sobel = sobelFilter(image);
   let output = new SimpleImage(image.getWidth(), image.getHeight());
-  for (let pixel of image.values())
-  {
+  for (let pixel of image.values()) {
     let x = pixel.getX();
     let y = pixel.getY();
-    if (checkIfCornerPixel(image, x, y))
-    {
+    if (checkIfCornerPixel(image, x, y)) {
       output.setPixel(x, y, output.getPixel(x, y));
       continue;
     }
@@ -313,13 +345,10 @@ function doEdgeDetection()
   }
   output.drawTo(canvas1);
   alert("Edge detection filter is applying. Click OK to proceed.");
-
 }
 
-function notloaded()
-{
-  if (image == null || !image.complete())
-  {
+function notloaded() {
+  if (image == null || !image.complete()) {
     alert("Image is not loaded.");
   }
 }
