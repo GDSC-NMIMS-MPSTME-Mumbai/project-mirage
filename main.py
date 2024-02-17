@@ -30,6 +30,10 @@ def generate():
 def filter():
     return render_template('filter.html')
 
+@app.route('/flowers')
+def flowers():
+    return render_template('flowers.html')
+
 # Run the Flask application if this script is executed directly
 if __name__ == '__main__':
     # Enabling debugging mode for easier development
