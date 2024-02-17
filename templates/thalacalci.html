@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/thala.css') }}">
 </head>
 <body>
+    {% include "_navbar.html" %}
     <h1>Thala <br> Calculator</h1>
     <form method="post">
         <input type="text" name="expression" id="expression" placeholder="eg 2023 as 2 0 2 3" value="{{ numbers }}" autocomplete="off"> 

@@ -1,8 +1,10 @@
 body{
     align-items: center;
     text-align: center;
-    background-color: #F9CD05;
+    background-color: #111;;
     color: #00ADEF;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
 }
 form{
     display: flex;
@@ -62,3 +64,42 @@ h1{
         transform: rotate(360deg);
     }
 }
+
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    padding: 0 20px;
+  }
+  
+  .logo {
+    margin-left: 20px;
+  }
+  
+  .logo img {
+    height: 80px;
+    width: 80px;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    margin: 0 20px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: #3498db;
+  }
