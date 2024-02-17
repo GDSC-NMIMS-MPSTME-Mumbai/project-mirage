@@ -1,0 +1,64 @@
+body{
+    align-items: center;
+    text-align: center;
+    background-color: #F9CD05;
+    color: #00ADEF;
+}
+form{
+    display: flex;
+    flex-direction:  column;
+    align-items: center;
+    
+}
+form input,button{
+    width: 10rem;
+
+}
+form input{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #00ADEF;
+    margin: 2rem;
+    outline: none;
+    font-size: 1.75rem;
+    color: whitesmoke;
+    width: 15rem;
+}
+button{
+    background-color: transparent;
+    border-color: #00ADEF;
+    border-radius: 2rem;
+    height: 3rem;
+    color: aliceblue;
+    background-color: #1D418C;
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+
+h1{
+    padding-top: 10%;
+    font-size: 5rem;
+}
+#result{
+    animation: col_change 1s infinite;
+}
+
+
+@keyframes col_change {
+    0% {
+        color: #1D418C;
+    }
+    25%{
+        color: red;
+        transform: rotate(360deg);
+        
+    }
+    50%{
+        color: #00ADEF;
+        font-size: 4rem;
+    }
+    100%{
+        color: white;
+        transform: rotate(360deg);
+    }
+}
