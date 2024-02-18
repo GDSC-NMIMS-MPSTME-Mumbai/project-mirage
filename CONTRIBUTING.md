@@ -2,11 +2,26 @@
 
 This file explains how to set-up and run the project locally
 
+## Docker Setup
+
+
+1. **Navigate to project directory**
+
+   ```bash
+   docker-compose up
+   ```
+   This will start the development server.
+
+222
+
 
 ## Prerequisites
 
 - Python 3.x installed
 - Pip package manager installed
+- Node.js installed
+- A code editor (VSCode, Sublime Text, Atom, etc.)
+- Docker Installed
 
 
 ## Setup

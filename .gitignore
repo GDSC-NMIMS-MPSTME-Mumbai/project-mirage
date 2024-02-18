@@ -71,3 +71,7 @@ celerybeat-schedule
 .env
 .venv
 env
+
+#Custom ignore
+3d-piano-player/
+*.hi

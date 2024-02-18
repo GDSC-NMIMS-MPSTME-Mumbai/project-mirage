@@ -1,3 +1,4 @@
+/*eslint-disable*/
 // pixel-art.js
 const board = document.getElementById("drawingBoard");
 const gridSizeSlider = document.getElementById("gridSizeSlider");
