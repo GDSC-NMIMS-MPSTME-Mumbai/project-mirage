@@ -1,0 +1,116 @@
+body {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-family: Arial;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.move-icon {
+  height: 50px;
+}
+
+.move-button {
+  background-color: transparent;
+  border: 2px solid white;
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.move-button:hover {
+  background-color: #F8F7F4;
+}
+
+.js-result {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+.js-moves {
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.js-score {
+  margin-top: 60px;
+  font-size: 20px;
+}
+
+.reset-score-button,
+.auto-play-button {
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px;
+  margin: 5px;
+  border: 2px solid white;
+  border-radius: 10px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.reset-score-button:hover,
+.auto-play-button:hover {
+  background-color: rgb(170, 225, 242);
+  color: black;
+  border: 2px solid rgb(170, 225, 242);
+} 
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: black;
+  padding: 0 -20px;
+  position: fixed;
+  top: 0;
+}
+
+.logo {
+  margin-left: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 80px;
+  width: 80px;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s ease;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+nav ul li a:hover {
+  color: #3498db;
+}
