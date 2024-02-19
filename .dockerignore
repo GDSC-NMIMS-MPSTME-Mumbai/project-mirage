@@ -1,3 +1,7 @@
 venv
 node_modules
 3d-piano-player
+# Standard Dockerignore statements
+.dockerignore.example
+.idea
+.vscode

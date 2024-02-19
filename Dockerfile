@@ -37,11 +37,13 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 #RUN npm install
 
 # Build Haskell app
-RUN stack setup
-RUN stack build
+# TODO: Haskell setup takes too long do it separately and locally 
+# RUN stack setup
+# RUN stack init
+# RUN stack build
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
 
 # Define environment variable
 ENV NAME World
