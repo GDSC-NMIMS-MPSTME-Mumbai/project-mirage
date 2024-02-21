@@ -10,31 +10,49 @@ let points = 0;
 let level = 1;
 let timerId = null;
 let particleNum = 0;
+let isRunning = false;
 
-function moveRandom() {
+
+function moveRandom()
+{
+  if (isRunning == false)
+    return;
+
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
   const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
   gameButton.style.top = `${randomY}px`;
   gameButton.style.left = `${randomX}px`;
 }
 
-function moveButton() {
+function moveButton()
+{
+
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
   const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
 
   gameButton.style.top = `${randomY}px`;
   gameButton.style.left = `${randomX}px`;
 
+  if (isRunning == false)
+  {
+    startStop();
+  }
+
   points++;
-  if (points % 5 == 0) {
+  if (points % 5 == 0)
+  {
     level++;
-    if (points === 5 && timerId === null) {
-      timerId = setInterval(() => {
+    if (points === 5 && timerId === null)
+    {
+      timerId = setInterval(() =>
+      {
         moveRandom();
       }, 4000);
-    } else {
+    } else
+    {
       clearInterval(timerId);
-      timerId = setInterval(() => {
+      timerId = setInterval(() =>
+      {
         moveRandom();
       }, (8000 / level));
     }
@@ -46,7 +64,8 @@ function moveButton() {
 
 // Create and append particles to the document
 const particlesContainer = document.querySelector(".particles");
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 100; i++)
+{
   const particle = document.createElement("div");
   particle.classList.add("particle");
   particle.style.left = `${Math.random() * 100}vw`;
@@ -54,7 +73,6 @@ for (let i = 0; i < 100; i++) {
   particlesContainer.appendChild(particle);
 }
 
-moveButton();
 
 //Creating a function change background color randomly on button click
 const button = document.querySelector("#generate-button");
@@ -64,7 +82,8 @@ let backgroundBlob = document.getElementById("blob");
 
 let blob = document.getElementById("blob");
 
-document.body.onpointermove = (event) => {
+document.body.onpointermove = (event) =>
+{
   const { clientX, clientY } = event;
 
   const blobWidth = blob.offsetWidth;
@@ -83,14 +102,18 @@ let heroText = document.getElementById("hero-text");
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-heroText.onmouseover = (event) => {
+heroText.onmouseover = (event) =>
+{
   let iterations = 0;
 
-  const interval = setInterval(() => {
+  const interval = setInterval(() =>
+  {
     event.target.textContent = "Button Racer"
       .split("")
-      .map((letter, index) => {
-        if (index < iterations) {
+      .map((letter, index) =>
+      {
+        if (index < iterations)
+        {
           return event.target.dataset.value[index];
         }
 
@@ -98,7 +121,8 @@ heroText.onmouseover = (event) => {
       })
       .join("");
 
-    if (iterations >= event.target.dataset.value.length) {
+    if (iterations >= event.target.dataset.value.length)
+    {
       clearInterval(interval);
     }
 
@@ -106,7 +130,8 @@ heroText.onmouseover = (event) => {
   }, 30);
 };
 
-function rgbToHsl(r, g, b) {
+function rgbToHsl(r, g, b)
+{
   (r /= 255), (g /= 255), (b /= 255);
   let max = Math.max(r, g, b),
     min = Math.min(r, g, b);
@@ -114,12 +139,15 @@ function rgbToHsl(r, g, b) {
     s,
     l = (max + min) / 2;
 
-  if (max == min) {
+  if (max == min)
+  {
     h = s = 0; // achromatic
-  } else {
+  } else
+  {
     let d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
+    switch (max)
+    {
       case r:
         h = (g - b) / d + (g < b ? 6 : 0);
         break;
@@ -136,13 +164,17 @@ function rgbToHsl(r, g, b) {
   return [h, s, l];
 }
 
-function hslToRgb(h, s, l) {
+function hslToRgb(h, s, l)
+{
   let r, g, b;
 
-  if (s == 0) {
+  if (s == 0)
+  {
     r = g = b = l; // achromatic
-  } else {
-    let hue2rgb = (p, q, t) => {
+  } else
+  {
+    let hue2rgb = (p, q, t) =>
+    {
       if (t < 0) t += 1;
       if (t > 1) t -= 1;
       if (t < 1 / 6) return p + (q - p) * 6 * t;
@@ -159,4 +191,82 @@ function hslToRgb(h, s, l) {
   }
 
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+
+// stop watch
+let time = 0;
+let running = 0;
+
+function startStop()
+{
+  if (isRunning == false)
+  {
+    isRunning = true;
+    increment();
+    document.getElementById('startStop').innerHTML = 'Pause';
+  } else
+  {
+    isRunning = false;
+
+    document.getElementById('startStop').innerHTML = 'Resume';
+  }
+}
+
+function reset()
+{
+  running = 0;
+  time = 0;
+  points = 0;
+  level = 1;
+  pointsElement.innerText = points; // Update the points
+  levelElement.innerText = level;
+  document.getElementById('startStop').innerHTML = 'Start';
+  document.getElementById('stopwatch').innerHTML = '00:00:00';
+}
+
+function increment()
+{
+  if (isRunning == true)
+  {
+    setTimeout(function ()
+    {
+      if (isRunning == false)
+      {
+        return;
+      }
+      time++;
+      let mins = Math.floor(time / 10 / 60);
+      let secs = Math.floor(time / 10 % 60);
+      let tenths = time % 10;
+
+      if (mins < 10)
+      {
+        mins = '0' + mins;
+      }
+      if (secs < 10)
+      {
+        secs = '0' + secs;
+      }
+      document.getElementById('stopwatch').innerHTML =
+        mins + ':' + secs + ':' + '0' + tenths;
+      increment();
+    }, 100);
+  }
+}
+
+function shareScore()
+{
+  // open modal
+  document.getElementById('modal').style.display = 'block';
+  document.getElementById('final-score').innerText = points;
+  document.getElementById('final-time').innerText = document.getElementById('stopwatch').innerText;
+
+  // close modal
+  document.getElementById('close').addEventListener('click', function ()
+  {
+    document.getElementById('modal').style.display = 'none';
+  });
+
+
 }

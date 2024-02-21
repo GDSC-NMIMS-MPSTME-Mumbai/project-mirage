@@ -15,6 +15,7 @@
       src="{{ url_for('static', filename='js/index.js') }}"
     ></script>
   </head>
+
   <body>
     <div id="blob"></div>
     <div id="blur"></div>
@@ -33,9 +34,30 @@
       </h1>
 
       <div class="controls">
-        <button id="game-button" tabindex="-1" onclick="moveButton()">
+        <!-- Stop watch Clock -->
+        <div class="stopwatch">
+          <h2>Time:</h2>
+          <div id="stopwatch">00:00:00</div>
+          <div class="wrapper">
+            <button id="startStop" onclick="startStop()">Start</button>
+            <button id="reset" onclick="reset()">Reset</button>
+            <button id="share" onclick="shareScore()">Share</button>
+          </div>
+        </div>
+
+        <button id="game-button" onclick="moveButton()">
           Catch Me If You Can
         </button>
+      </div>
+
+      <div id="modal">
+        <div class="modal-content">
+          <span id="close">&times;</span>
+          <h2>Share your Score</h2>
+          <p>Your score is: <span id="final-score">0</span></p>
+          <p>Your Time is: <span id="final-time">00:00:00</span></p>
+          <button id="play-again" onclick="playAgain()">Play Again</button>
+        </div>
       </div>
     </main>
   </body>
