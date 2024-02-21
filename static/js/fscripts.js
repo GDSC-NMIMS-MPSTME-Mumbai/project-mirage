@@ -36,7 +36,6 @@ function load() {
           let r = pixels[index];
           let g = pixels[index + 1];
           let b = pixels[index + 2];
-          let a = pixels[index + 3];
           let pixel = [r, g, b]
           row.push(pixel);
         }

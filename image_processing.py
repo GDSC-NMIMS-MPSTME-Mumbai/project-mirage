@@ -70,9 +70,11 @@ def Frame(pixels):
 def stringToFunction(pixelArray, filterName):
     # apply filter
     # convert pixelArray to numpy array
-    pixelArray = np.array(pixelArray, dtype=np.uint8)
-    print(pixelArray.shape)
 
+    try:
+        pixelArray = np.array(pixelArray,dtype=np.uint8)
+    except:
+        return "Error: Invalid pixel array"
 
     pixels=[]
     if filterName == 'grayScale':

@@ -42,7 +42,8 @@ def apply_filter(filter_name):
         # Apply the filter to the pixel array
 
         pixels = image_processing.stringToFunction(pixelArray, filter_name)
-        
+        if("Error" in pixels):
+            return Response('Invalid request', status=400, content_type='text/plain')
         # Return the processed pixel array as a string response which is a json string
         return Response(json.dumps(pixels.tolist()), content_type='application/json')
     else:
