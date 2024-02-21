@@ -10,8 +10,11 @@ let points = 0;
 let level = 1;
 let timerId = null;
 let particleNum = 0;
+let isRunning = false;
 
 function moveRandom() {
+  if (isRunning == false) return;
+
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth));
   const randomY = Math.floor(Math.random() * (containerHeight - buttonHeight));
   gameButton.style.top = `${randomY}px`;
@@ -25,6 +28,10 @@ function moveButton() {
   gameButton.style.top = `${randomY}px`;
   gameButton.style.left = `${randomX}px`;
 
+  if (isRunning == false) {
+    startStop();
+  }
+
   points++;
   if (points % 5 == 0) {
     level++;
@@ -36,7 +43,7 @@ function moveButton() {
       clearInterval(timerId);
       timerId = setInterval(() => {
         moveRandom();
-      }, (8000 / level));
+      }, 8000 / level);
     }
   }
 
@@ -53,8 +60,6 @@ for (let i = 0; i < 100; i++) {
   particle.style.top = `${Math.random() * 100}vh`;
   particlesContainer.appendChild(particle);
 }
-
-moveButton();
 
 //Creating a function change background color randomly on button click
 const button = document.querySelector("#generate-button");
@@ -159,4 +164,68 @@ function hslToRgb(h, s, l) {
   }
 
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+// stop watch
+let time = 0;
+let running = 0;
+
+function startStop() {
+  if (isRunning == false) {
+    isRunning = true;
+    increment();
+    document.getElementById("startStop").innerHTML = "Pause";
+  } else {
+    isRunning = false;
+
+    document.getElementById("startStop").innerHTML = "Resume";
+  }
+}
+
+function reset() {
+  running = 0;
+  time = 0;
+  points = 0;
+  level = 1;
+  pointsElement.innerText = points; // Update the points
+  levelElement.innerText = level;
+  document.getElementById("startStop").innerHTML = "Start";
+  document.getElementById("stopwatch").innerHTML = "00:00:00";
+}
+
+function increment() {
+  if (isRunning == true) {
+    setTimeout(function () {
+      if (isRunning == false) {
+        return;
+      }
+      time++;
+      let mins = Math.floor(time / 10 / 60);
+      let secs = Math.floor((time / 10) % 60);
+      let tenths = time % 10;
+
+      if (mins < 10) {
+        mins = "0" + mins;
+      }
+      if (secs < 10) {
+        secs = "0" + secs;
+      }
+      document.getElementById("stopwatch").innerHTML =
+        mins + ":" + secs + ":" + "0" + tenths;
+      increment();
+    }, 100);
+  }
+}
+
+function shareScore() {
+  // open modal
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("final-score").innerText = points;
+  document.getElementById("final-time").innerText =
+    document.getElementById("stopwatch").innerText;
+
+  // close modal
+  document.getElementById("close").addEventListener("click", function () {
+    document.getElementById("modal").style.display = "none";
+  });
 }

@@ -8,9 +8,44 @@ let reset = null;
 let canvas1 = document.getElementById("can1");
 let download = document.getElementById("downloadBtn");
 download.addEventListener("click", downloadImage);
+let pixelArray = [];
 
 function load() {
   let fileinput = document.getElementById("image");
+
+  // convert the file to array of pixels
+
+  let file = fileinput.files[0];
+  let reader = new FileReader();
+  reader.onload = function (event) {
+    let img = new Image();
+    img.onload = function () {
+      let canvas = document.createElement("canvas");
+      let context = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const width = img.width;
+      const height = img.height;
+      context.drawImage(img, 0, 0);
+      let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      let pixels = imageData.data;
+      for (let i = 0; i<width; i++) {
+        let row = [];
+        for (let j = 0; j<height; j++) {
+          let index = (i + j * width) * 4;
+          let r = pixels[index];
+          let g = pixels[index + 1];
+          let b = pixels[index + 2];
+          let pixel = [r, g, b]
+          row.push(pixel);
+        }
+        pixelArray.push(row);
+      }
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+
   image = new SimpleImage(fileinput);
   grayImg = new SimpleImage(fileinput);
   redImg = new SimpleImage(fileinput);
@@ -38,6 +73,44 @@ function downloadImage() {
   a.click();
 }
 
+function getImage(filterName)
+{
+  // send the pixel array to the server
+  fetch(`/filter/${filterName}`, {
+    method: "POST",
+    body: JSON.stringify({ pixelArray: pixelArray }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) =>
+  {
+    response.json().then((data) =>
+    {
+      // data is array of pixels
+      let canvas = document.getElementById("can1");
+      let context = canvas.getContext("2d");
+      const width = data.length;
+      const height = data[0].length;
+      canvas.width = width;
+      canvas.height = height;
+      for (let i = 0; i<width; i++) {
+        for (let j = 0; j<height; j++) {
+          let pixel = data[i][j];
+          if (typeof pixel === "number") {
+            context.fillStyle = `rgb(${pixel}, ${pixel}, ${pixel})`;
+            context.fillRect(i, j, 1, 1);
+          }
+          else
+          {
+            context.fillStyle = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+            context.fillRect(i, j, 1, 1);
+          }
+        }
+      }
+    });
+  });
+}
+
 function doGray() {
   notloaded();
   for (let pixel of grayImg.values()) {
@@ -48,6 +121,7 @@ function doGray() {
   }
   grayImg.drawTo(canvas1);
   alert("Grayscale filter is applying. Click OK to proceed.");
+  console.log(grayImg.values());
 }
 
 function doRed() {
@@ -166,6 +240,110 @@ function doBlur() {
   }
   blurImg.drawTo(canvas1);
   alert("Blur filter is applying. Click OK to proceed.");
+}
+
+function doEdgeDetection() {
+  function checkIfCornerPixel(image, x, y) {
+    if (x == 0 || y == 0) {
+      return true;
+    }
+    if (x == image.getWidth() - 1 || y == image.getHeight() - 1) {
+      return true;
+    }
+    return false;
+  }
+
+  function robertsFilter(image) {
+    let output = new SimpleImage(image.getWidth(), image.getHeight());
+    for (let pixel of image.values()) {
+      let x = pixel.getX();
+      let y = pixel.getY();
+      if (checkIfCornerPixel(image, x, y)) {
+        output.setPixel(x, y, output.getPixel(x, y));
+        continue;
+      }
+      let leftPixel = image.getPixel(x, y);
+      let rightPixel = image.getPixel(x + 1, y + 1);
+      let diff = Math.abs(leftPixel.getRed() - rightPixel.getRed());
+      output.setPixel(x, y, output.getPixel(x, y));
+    }
+    return output;
+  }
+
+  function prewittFilter(image) {
+    let output = new SimpleImage(image.getWidth(), image.getHeight());
+    for (let pixel of image.values()) {
+      let x = pixel.getX();
+      let y = pixel.getY();
+      if (checkIfCornerPixel(image, x, y)) {
+        output.setPixel(x, y, output.getPixel(x, y));
+        continue;
+      }
+      let topPixel = image.getPixel(x, y);
+      let bottomPixel = image.getPixel(x, y + 1);
+      let diff = Math.abs(topPixel.getRed() - bottomPixel.getRed());
+      output.getPixel(x, y).setRed(diff);
+      output.getPixel(x, y).setGreen(diff);
+      output.getPixel(x, y).setBlue(diff);
+    }
+    return output;
+  }
+
+  function sobelFilter(image) {
+    let output = new SimpleImage(image.getWidth(), image.getHeight());
+    for (let pixel of image.values()) {
+      let x = pixel.getX();
+      let y = pixel.getY();
+      if (checkIfCornerPixel(image, x, y)) {
+        output.setPixel(x, y, output.getPixel(x, y));
+        continue;
+      }
+      let topLeftPixel = image.getPixel(x - 1, y - 1);
+      let topRightPixel = image.getPixel(x + 1, y - 1);
+      let bottomLeftPixel = image.getPixel(x - 1, y + 1);
+      let bottomRightPixel = image.getPixel(x + 1, y + 1);
+      let diffX = Math.abs(
+        topLeftPixel.getRed() +
+          2 * topRightPixel.getRed() +
+          bottomLeftPixel.getRed() -
+          2 * bottomRightPixel.getRed()
+      );
+      let diffY = Math.abs(
+        topLeftPixel.getRed() +
+          2 * bottomLeftPixel.getRed() +
+          topRightPixel.getRed() -
+          2 * bottomRightPixel.getRed()
+      );
+      let diff = Math.sqrt(diffX * diffX + diffY * diffY);
+      output.getPixel(x, y).setRed(diff);
+      output.getPixel(x, y).setGreen(diff);
+      output.getPixel(x, y).setBlue(diff);
+    }
+    return output;
+  }
+
+  // combine the filters
+  let roberts = robertsFilter(image);
+  let prewitt = prewittFilter(image);
+  let sobel = sobelFilter(image);
+  let output = new SimpleImage(image.getWidth(), image.getHeight());
+  for (let pixel of image.values()) {
+    let x = pixel.getX();
+    let y = pixel.getY();
+    if (checkIfCornerPixel(image, x, y)) {
+      output.setPixel(x, y, output.getPixel(x, y));
+      continue;
+    }
+    let r = roberts.getPixel(x, y).getRed();
+    let p = prewitt.getPixel(x, y).getRed();
+    let s = sobel.getPixel(x, y).getRed();
+    let max = Math.max(r, p, s);
+    output.getPixel(x, y).setRed(max);
+    output.getPixel(x, y).setGreen(max);
+    output.getPixel(x, y).setBlue(max);
+  }
+  output.drawTo(canvas1);
+  alert("Edge detection filter is applying. Click OK to proceed.");
 }
 
 function notloaded() {
