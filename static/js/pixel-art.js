@@ -154,3 +154,46 @@ board.addEventListener("mouseleave", stopDrawing);
 
 // Initial creation of pixels with the default grid size
 createPixels(gridSize);
+
+publish.addEventListener("click", function(){
+  html2canvas(board).then((canvas) => {;
+    canvas.toBlob(function(blob){
+      var image = new Image();
+      image.src = blob;
+        var uploadTask = storageRef.child('images/' + Date.now() + ".png").put(blob).then(
+          () => {
+            window.alert("Your image was published!")
+            window.location.replace("http://127.0.0.1:5000/pixel-art")
+          },
+          () => {
+            window.alert("There was an error publishing your file. Please try again later")
+          }
+        );
+    }); 
+  })
+})
+
+
+$('#List').html('')
+
+storageRef.child('images/').listAll().then(function(result){
+    result.items.forEach(function(imageRef){
+      i++;
+      displayImage(i, imageRef);
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+
+
+function displayImage(row, images){
+  images.getDownloadURL().then(function(url){
+    console.log(url)
+    let new_html = '';
+    new_html += '<div class="col-sm-4">'
+    new_html += '<img src="'+url+'" class="rounded mx-auto d-block" width=200px>'
+    new_html += '</div>'  
+    $('#List').append(new_html);
+  })
+}
