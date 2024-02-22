@@ -67,6 +67,7 @@
             Clear Canvas
           </button>
           <button type="button" id="downloadBtn">Download</button>
+          <!-- Only allows publishing if user is signed in -->
           {% if session.user %}
             <button type="button" id="publishBtn">Publish!</button>
           {% else %}
@@ -75,12 +76,13 @@
         </div>
         <div id="drawingBoard"></div>
       </div>
+      <!-- This will displays the images in the firebase storage -->
       <h1>Gallery</h1>
       {% if session.user %}
       <div class="container text-center">
         <div id="List" class="row gy-5">
           <div>
-
+            <!-- *HERE* -->
           </div>
         </div>
       </div>

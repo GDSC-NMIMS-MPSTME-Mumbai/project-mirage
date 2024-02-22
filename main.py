@@ -48,11 +48,12 @@ def generate():
 def filter():
     return render_template('filter.html')
 
-
+# Route for login
 @app.route('/login', methods=['POST','GET'])
 def login():
     if 'user' in session:
         return redirect('/pixel-art')
+    # Gets email and password and signs in user
     if request.method == 'POST':
         email = request.form.get('email')
         pwd = request.form.get('password')
@@ -64,10 +65,12 @@ def login():
             return 'Failed to login'
     return render_template('login.html')
 
+# Route for register
 @app.route('/register', methods=['POST','GET'])
 def register():
     if 'user' in session:
         return redirect('/pixel-art')
+    # Gets email and password and creates user
     if request.method == 'POST':
         email = request.form.get('email')
         pwd = request.form.get('password')

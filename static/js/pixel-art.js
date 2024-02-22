@@ -8,6 +8,7 @@ let download = document.getElementById("downloadBtn");
 let publish = document.getElementById("publishBtn");
 var i=0
 
+// Initializing firebase app and firebase storage reference
 var config = {
   "apiKey": "AIzaSyDlq0E6KA4cnxqweE4EcnyRFtCCFqUNc4I",
   "authDomain": "ai-germ-site.firebaseapp.com",
@@ -80,7 +81,9 @@ gridSizeSlider.addEventListener("input", (event) => {
   }
 });
 
+// Download functionality
 download.addEventListener("click", function(){
+  // drawingBoard div gets converted to canvas which gets converted to imageUrl
   html2canvas(board).then((canvas) => {
     const imageDataUrl = canvas.toDataURL("image/png");
     const a = document.createElement("a")
@@ -189,9 +192,11 @@ publish.addEventListener("click", function(){
 
 $('#List').html('')
 
+// Retrieves all images in firebase storage as imageUrls
 storageRef.child('images/').listAll().then(function(result){
     result.items.forEach(function(imageRef){
       i++;
+      // see below function
       displayImage(i, imageRef);
     })
   })
@@ -199,7 +204,7 @@ storageRef.child('images/').listAll().then(function(result){
     console.log(error)
   })
 
-
+// function takes imageUrls and inserts them into the template
 function displayImage(row, images){
   images.getDownloadURL().then(function(url){
     console.log(url)
@@ -207,6 +212,8 @@ function displayImage(row, images){
     new_html += '<div class="col-sm-4">'
     new_html += '<img src="'+url+'" class="rounded mx-auto d-block" width=200px>'
     new_html += '</div>'  
+    // new_html is added to the comment saying *HERE* in pixel-art.html
+    // Don't ask why I did it like this
     $('#List').append(new_html);
   })
 }
