@@ -18,6 +18,10 @@ def hello_world():
 def pixel_art():
     return render_template('pixel-art.html')
 
+@app.route('/rock-paper-scissors')
+def rock_paper_scissors():
+    return render_template('rock-paper-scissors.html')
+
 # Define a route for the '/generate-random' URL
 @app.route('/generate-random')
 def generate():
