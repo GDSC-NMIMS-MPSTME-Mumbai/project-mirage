@@ -120,8 +120,8 @@ function playGame(playerMove) {
     document.querySelector(".js-result").innerHTML = result;
 
     document.querySelector(".js-moves").innerHTML = `You 
-    <img src="/static/images/${playerMove}-emoji.png" class="move-icon" />
-    <img src="/static/images/${computerMove}-emoji.png" class="move-icon"> Computer`;
+    <img src="/static/images/${playerMove.toLowerCase()}-emoji.png" class="move-icon" />
+    <img src="/static/images/${computerMove.toLowerCase()}-emoji.png" class="move-icon"> Computer`;
 }
 
 function updateScoreElement() {
