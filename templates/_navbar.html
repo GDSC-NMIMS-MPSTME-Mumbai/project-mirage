@@ -11,5 +11,8 @@
     <li><a href="/">Button Racer</a></li>
     <li><a href="/pixel-art">Pixel Art</a></li>
     <li><a href="/filter">Filter Image</a></li>
+    {% if session.user %}
+    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    {% endif %}
   </ul>
 </nav>

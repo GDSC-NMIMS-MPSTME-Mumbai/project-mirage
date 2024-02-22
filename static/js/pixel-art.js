@@ -5,7 +5,23 @@ let currentColor = "black";
 let isMouseDown = false;
 let gridSize = 16; // Default grid size
 let download = document.getElementById("downloadBtn");
-download.addEventListener("click", downloadImage);
+let publish = document.getElementById("publishBtn");
+var i=0
+
+// Initializing firebase app and firebase storage reference
+var config = {
+  "apiKey": "AIzaSyDlq0E6KA4cnxqweE4EcnyRFtCCFqUNc4I",
+  "authDomain": "ai-germ-site.firebaseapp.com",
+  "projectId": "ai-germ-site",
+  "storageBucket": "ai-germ-site.appspot.com",
+  "messagingSenderId": "429718411683",
+  "appId": "1:429718411683:web:d80cfd48a3afe57f32e216",
+  "measurementId": "G-7R47RXR1VS",
+  "databaseURL" : ""
+}
+
+firebase.initializeApp(config)
+var storageRef = firebase.storage().ref()
 
 // Function to create the grid of pixels
 function createPixels(size) {
@@ -64,10 +80,18 @@ gridSizeSlider.addEventListener("input", (event) => {
     gridSizeDisplay.textContent = `${gridSize}x${gridSize}`;
   }
 });
-function downloadImage() {
-  alert("Work in Progress.....")
 
-}
+// Download functionality
+download.addEventListener("click", function(){
+  // drawingBoard div gets converted to canvas which gets converted to imageUrl
+  html2canvas(board).then((canvas) => {
+    const imageDataUrl = canvas.toDataURL("image/png");
+    const a = document.createElement("a")
+    a.href = imageDataUrl;
+    a.download = "board.png"
+    a.click()
+  })
+})
 
 // Event listener for the color selection mode button
 // Event listener for the color selection mode button
@@ -146,3 +170,50 @@ board.addEventListener("mouseleave", stopDrawing);
 
 // Initial creation of pixels with the default grid size
 createPixels(gridSize);
+
+publish.addEventListener("click", function(){
+  html2canvas(board).then((canvas) => {;
+    canvas.toBlob(function(blob){
+      var image = new Image();
+      image.src = blob;
+        var uploadTask = storageRef.child('images/' + Date.now() + ".png").put(blob).then(
+          () => {
+            window.alert("Your image was published!")
+            window.location.replace("http://127.0.0.1:5000/pixel-art")
+          },
+          () => {
+            window.alert("There was an error publishing your file. Please try again later")
+          }
+        );
+    }); 
+  })
+})
+
+
+$('#List').html('')
+
+// Retrieves all images in firebase storage as imageUrls
+storageRef.child('images/').listAll().then(function(result){
+    result.items.forEach(function(imageRef){
+      i++;
+      // see below function
+      displayImage(i, imageRef);
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+
+// function takes imageUrls and inserts them into the template
+function displayImage(row, images){
+  images.getDownloadURL().then(function(url){
+    console.log(url)
+    let new_html = '';
+    new_html += '<div class="col-sm-4">'
+    new_html += '<img src="'+url+'" class="rounded mx-auto d-block" width=200px>'
+    new_html += '</div>'  
+    // new_html is added to the comment saying *HERE* in pixel-art.html
+    // Don't ask why I did it like this
+    $('#List').append(new_html);
+  })
+}

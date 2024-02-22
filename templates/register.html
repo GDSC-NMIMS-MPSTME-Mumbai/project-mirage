@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/loginandregister.css') }}"
+    />
+</head>
+<body class="bg-dark">
+  <h1 style="text-align: center;" class="text-light">REGISTER</h1>
+    <form action="/register" method='POST' class="form-horizontal" role="form" align="center">
+        <div class="form-group" align="center">
+          <label for="exampleInputEmail1" class="form-label text-light">Email address</label>
+          <div class="col-sm-3">
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
+          </div>
+        </div>
+        <div class="mb-3" align="center">
+          <label for="exampleInputPassword1" class="form-label text-light">Password</label>
+          <div class="col-sm-3">
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-outline-light">Submit</button>
+      </form>
+      <p style="text-align: center;" class="text-light">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+</body>
+
