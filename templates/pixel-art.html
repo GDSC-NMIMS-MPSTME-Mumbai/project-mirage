@@ -37,6 +37,9 @@
   </head>
   <body>
     {% include "_navbar.html" %}
+    <marquee width="100%" direction="right" height="50px" loop="-1">
+      <p class="text-warning">vvv SCROLL DOWN TO SEE THE GALLERY vvv SCROLL DOWN TO SEE THE GALLERY vvv SCROLL DOWN TO SEE THE GALLERY vvv SCROLL DOWN TO SEE THE GALLERY vvv SCROLL DOWN TO SEE THE GALLERY vvv SCROLL DOWN TO SEE THE GALLERY vvv SCROLL DOWN TO SEE THE GALLERY vvv</p> 
+    </marquee>
     <h2 class="title colortext">Pixel Art</h2>
     <main>
       <div class="colorwrapper colortext">
@@ -46,7 +49,7 @@
           <button class="colorpickerbutton" id="colorWheelBtn">
             Color Mode
           </button>
-          <button class="colorpickerbutton" id="randomColorBtn">
+          <button class="colorpickerbutton" id="randomColorBtn" class="btn btn-outline-light">
             Rainbow Mode
           </button>
           <label for="gridSizeSlider">Grid Size:</label>
@@ -59,19 +62,19 @@
           />
           <span id="gridSizeDisplay">16x16</span>
           <!-- This will display the current grid size -->
-          <button class="colorpickerbutton" id="eraserBtn">Eraser Mode</button>
-          <button class="colorpickerbutton" id="toggleGridBtn">
+          <button class="colorpickerbutton" id="eraserBtn" class="btn btn-outline-light">Eraser Mode</button>
+          <button class="colorpickerbutton" id="toggleGridBtn" class="btn btn-outline-light">
             Toggle Grid
           </button>
-          <button class="colorpickerbutton" id="clearCanvasBtn">
+          <button class="colorpickerbutton" id="clearCanvasBtn" class="btn btn-outline-light">
             Clear Canvas
           </button>
-          <button type="button" id="downloadBtn">Download</button>
+          <button type="button" id="downloadBtn" class="btn btn-outline-light">Download</button>
           <!-- Only allows publishing if user is signed in -->
           {% if session.user %}
-            <button type="button" id="publishBtn">Publish!</button>
+            <button type="button" id="publishBtn" class="btn btn-outline-light">Publish!</button>
           {% else %}
-            <a href="{{ url_for('register') }}"><button type="button" id="publishBtn">Register to publish!</button></a>
+            <a href="{{ url_for('register') }}"><button type="button" id="publishBtn" class="btn btn-outline-light">Register to publish!</button></a>
           {% endif %}
         </div>
         <div id="drawingBoard"></div>
