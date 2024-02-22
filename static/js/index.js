@@ -174,3 +174,41 @@ function hslToRgb(h, s, l) {
 
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
+
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+let interval;
+
+document.getElementById('game-button').addEventListener('click', () => {
+    interval = setInterval(() => {
+        seconds++;
+        if (seconds == 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes == 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+        updateDisplay();
+    }, 1000);
+});
+
+document.getElementById('stop').addEventListener('click', () => {
+    interval = clearInterval(interval);
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+    clearInterval(interval);
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+    updateDisplay();
+});
+
+function updateDisplay() {
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+}

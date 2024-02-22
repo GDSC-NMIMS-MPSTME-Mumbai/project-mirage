@@ -22,7 +22,22 @@
     />
   </head>
   <body>
-    {% include "_navbar.html" %}
+    <nav>
+      <div class="logo">
+        <img
+          src = "{{ url_for('static', filename='images/Pixel_art_logo.png') }}"
+          alt="Logo"
+          height="100px"
+          width="100px"
+        />
+      </div>
+      <ul>
+        <li><a href="/">Button Racer</a></li>
+        <li><a href="/pixel-art">Pixel Art</a></li>
+        <li><a href="/filter">Filter Image</a></li>
+      </ul>
+    </nav>
+    
     <h2 class="title colortext">Pixel Art</h2>
     <main>
       <div class="colorwrapper colortext">

@@ -32,7 +32,7 @@ body {
 }
 
 #blob {
-  width: 30em;
+  width: 10em;
   aspect-ratio: 1/1;
   background-color: #2ec1cc;
   position: absolute;
@@ -234,6 +234,7 @@ nav {
   top: 0;
   left: 0;
   z-index: 2;
+  opacity: 0.5;
 }
 
 .logo, .nav-text {
@@ -273,4 +274,13 @@ nav ul li a:hover {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: white; 
   margin-left: 20px;  
+}
+.stopwatch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3498db;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
