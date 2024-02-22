@@ -70,7 +70,7 @@
           {% if session.user %}
             <button type="button" id="publishBtn">Publish!</button>
           {% else %}
-            <a href="{{ url_for('register') }}"><button type="button" id="registerBtn">Register to publish!</button></a>
+            <a href="{{ url_for('register') }}"><button type="button" id="publishBtn">Register to publish!</button></a>
           {% endif %}
         </div>
         <div id="drawingBoard"></div>
