@@ -8,6 +8,19 @@ let download = document.getElementById("downloadBtn");
 let publish = document.getElementById("publishBtn");
 var i=0
 
+var config = {
+  "apiKey": "AIzaSyDlq0E6KA4cnxqweE4EcnyRFtCCFqUNc4I",
+  "authDomain": "ai-germ-site.firebaseapp.com",
+  "projectId": "ai-germ-site",
+  "storageBucket": "ai-germ-site.appspot.com",
+  "messagingSenderId": "429718411683",
+  "appId": "1:429718411683:web:d80cfd48a3afe57f32e216",
+  "measurementId": "G-7R47RXR1VS",
+  "databaseURL" : ""
+}
+
+firebase.initializeApp(config)
+var storageRef = firebase.storage().ref()
 
 // Function to create the grid of pixels
 function createPixels(size) {
