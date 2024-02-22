@@ -5,7 +5,9 @@ let currentColor = "black";
 let isMouseDown = false;
 let gridSize = 16; // Default grid size
 let download = document.getElementById("downloadBtn");
-download.addEventListener("click", downloadImage);
+let publish = document.getElementById("publishBtn");
+var i=0
+
 
 // Function to create the grid of pixels
 function createPixels(size) {
@@ -64,10 +66,16 @@ gridSizeSlider.addEventListener("input", (event) => {
     gridSizeDisplay.textContent = `${gridSize}x${gridSize}`;
   }
 });
-function downloadImage() {
-  alert("Work in Progress.....")
 
-}
+download.addEventListener("click", function(){
+  html2canvas(board).then((canvas) => {
+    const imageDataUrl = canvas.toDataURL("image/png");
+    const a = document.createElement("a")
+    a.href = imageDataUrl;
+    a.download = "board.png"
+    a.click()
+  })
+})
 
 // Event listener for the color selection mode button
 // Event listener for the color selection mode button
