@@ -67,9 +67,29 @@
             Clear Canvas
           </button>
           <button type="button" id="downloadBtn">Download</button>
+          {% if session.user %}
+            <button type="button" id="publishBtn">Publish!</button>
+          {% else %}
+            <a href="{{ url_for('register') }}"><button type="button" id="registerBtn">Register to publish!</button></a>
+          {% endif %}
+        </div>
         </div>
         <div id="drawingBoard"></div>
       </div>
+      <h1>Gallery</h1>
+      {% if session.user %}
+      <div class="container text-center">
+        <div id="List" class="row gy-5">
+          <div>
+
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="text-center"></div>
+        <h2>Register or Login to see what everyone's been drawing!</h2>
+      </div>
+      {% endif %}
     </main>
   </body>
 </html>
