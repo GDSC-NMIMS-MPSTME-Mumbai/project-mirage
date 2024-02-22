@@ -71,3 +71,6 @@ celerybeat-schedule
 .env
 .venv
 env
+
+# MacOS DS Store files
+.DS_Store
