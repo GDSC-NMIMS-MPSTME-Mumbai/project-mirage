@@ -416,7 +416,7 @@ body {
   animation: walk-cycle 0.1s infinite steps(6), move 10s infinite linear;
 }
 
-@-webkit-keyframes walk-cycle {
+@keyframes walk-cycle {
   0% {
     background-position: 0 0;
   }
