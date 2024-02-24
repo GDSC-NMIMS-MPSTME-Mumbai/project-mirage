@@ -1,10 +1,8 @@
 body {
-  background-color: black;
-  /* Light gray background */
+  background-color: black; /* Light gray background */
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-
 .container {
   display: flex;
   flex-direction: column;
@@ -18,20 +16,18 @@ nav {
   width: 100%;
   background-color: black;
   padding: 0 20px;
-  position: absolute;
   top: 0;
   left: 0;
   z-index: 2;
 }
 
-.logo,
-.nav-text {
+.logo, .nav-text {
   display: inline-flex;
   align-items: center;
 }
 
 .logo img {
-  height: 80px;
+  height: 80px; 
 }
 
 nav ul {
@@ -47,20 +43,20 @@ nav ul li {
 
 nav ul li a {
   text-decoration: none;
-  color: #fff;
+  color: #fff; 
   transition: color 0.3s ease;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 nav ul li a:hover {
-  color: #3498db;
+  color: #3498db; 
 }
 
 .nav-text {
-  font-size: 40px;
+  font-size: 40px; 
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: white;
-  margin-left: 20px;
+  color: white; 
+  margin-left: 20px;  
 }
 
 h1,
