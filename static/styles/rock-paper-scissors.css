@@ -69,7 +69,7 @@ body {
   background-color: rgb(170, 225, 242);
   color: black;
   border: 2px solid rgb(170, 225, 242);
-} 
+}
 
 nav {
   display: flex;
@@ -90,7 +90,6 @@ nav {
 
 .logo img {
   height: 80px;
-  width: 80px;
 }
 
 nav ul {
