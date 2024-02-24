@@ -74,5 +74,3 @@ env
 
 # MacOS DS Store files
 .DS_Store
-
-.env
