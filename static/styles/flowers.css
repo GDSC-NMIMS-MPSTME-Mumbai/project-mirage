@@ -412,7 +412,7 @@ body {
   top: 20vh;
   width: 75px;
   height: 80px;
-  background: url(//cdn.ficsystems.com/_new/common/3.0/images/characters/earthday-bee.svg);
+  background: url(https://cdn.ficsystems.com/_new/common/3.0/images/characters/earthday-bee.svg);
   animation: walk-cycle 0.1s infinite steps(6), move 10s infinite linear;
 }
 
