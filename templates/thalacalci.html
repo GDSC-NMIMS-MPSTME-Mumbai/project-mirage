@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-<meta name="google-site-verification" content="uuPlAfmr7nK1CmXCOc8IGcLSygvhPjbAvYPVqKrn1iI" />
+    <meta name="google-site-verification" content="uuPlAfmr7nK1CmXCOc8IGcLSygvhPjbAvYPVqKrn1iI" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thala Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/thala.css') }}">
 </head>
+
 <body>
     {% include "_navbar.html" %}
     <h1>Thala <br> Calculator</h1>
     <form method="post">
-        <input type="text" name="expression" id="expression" placeholder="eg 2023 as 2 0 2 3" value="{{ numbers }}" autocomplete="off"> 
+        <input type="text" name="expression" id="expression" placeholder="eg 2023 as 2 0 2 3" value="{{ numbers }}"
+            autocomplete="off">
         <button name="button" id="button">Submit</button>
     </form>
-    {% if  final_val and thala == true%}
+    {% if final_val and thala == true%}
     <p id="result">{{ final_val }} = 7 <br> THALA FOR A REASON</p>
     <audio src="static/audio/thala.mp3" autoplay></audio>
+    <iframe width="882" height="496" src="https://www.youtube.com/embed/ikfFbBv1p6g"
+        title="Bole jo koyal ft. MS Dhoni Meme Template| Dhoni Dancing meme template |#msdhoni #memes #ipl2023"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
     {% elif thala == false and final_val == "Not Thala" %}
     <p id="result">Not Thala</p>
     {% endif %}
 </body>
+
 </html>

@@ -2,41 +2,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | Button Racer</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/index.css') }}"
-    />
-    <script
-      defer
-      src="{{ url_for('static', filename='js/index.js') }}"
-    ></script>
-  </head>
-  <body>
-    <div id="blob"></div>
-    <div id="blur"></div>
-    <div class="particles"></div>
-    {% include "_navbar.html" %}
-    <main>
-      <h3 class="animate-character" id="hero-text" data-value="Button Racer">
-        Button Racer
-      </h3>
 
-      <h1 id="score-container">
-        Points:
-        <span id="points">0</span>
-        Level:
-        <span id="level">1</span>
-      </h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Button Racer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}" />
+  <script defer src="{{ url_for('static', filename='js/index.js') }}"></script>
+</head>
 
-      <div class="controls">
-        <button id="game-button" tabindex="-1" onclick="moveButton()">
-          Catch Me If You Can
-        </button>
-      </div>
-    </main>
-  </body>
+<body>
+  <div id="blob"></div>
+  <div id="blur"></div>
+  <div class="particles"></div>
+  {% include "_navbar.html" %}
+  <main>
+    <h3 class="animate-character" id="hero-text" data-value="Button Racer">
+      Button Racer
+    </h3>
+
+    <h1 id="score-container">
+      Points:
+      <span id="points">0</span>
+      Level:
+      <span id="level">1</span>
+    </h1>
+
+    <div class="controls">
+      <button id="game-button" tabindex="-1" onclick="moveButton()">
+        Catch Me If You Can
+      </button>
+    </div>
+  </main>
+</body>
+
 </html>
