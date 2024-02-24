@@ -12,9 +12,9 @@
 
 <body>
   {% include "_navbar.html" %}
-  <p class="title">Rock Paper Scissors</p>
+  <p class="title" id="title">Rock Paper Scissors</p>
 
-  <span class="btn-container">
+  <span class="btn-container" id="choice-container">
     <button class="move-button js-rock-button">
       <img src="/static/images/rock-emoji.png" class="move-icon" />
     </button>
@@ -33,8 +33,9 @@
   <p class="js-score"></p>
 
   <span class="btn-container">
-    <button class="reset-score-button js-reset-button">Reset Score</button>
-    <button class="auto-play-button js-auto-play-button">Auto Play</button>
+    <button class="menu-btn js-big-bang-button">Big Bang Theory Mode: Off</button>
+    <button class="menu-btn js-reset-button">Reset Score</button>
+    <button class="menu-btn js-auto-play-button">Auto Play</button>
   </span>
 
 </body>
