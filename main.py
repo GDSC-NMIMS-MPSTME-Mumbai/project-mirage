@@ -39,6 +39,10 @@ def filter():
 def flowers():
     return render_template('flowers.html')
 
+@app.route('/afford')
+def afford():
+    return render_template('afford.html')
+
 @app.route("/thalacalculator",methods=["POST","GET"])
 def thala():
     numbers = ""

@@ -44,12 +44,12 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #3498db;
+  color: #0000ff;
 }
 
 h1,
 h2 {
-  color: #0575bf;
+  color: rgb(18, 219, 212);
   margin: 20px;
 }
 
@@ -63,7 +63,7 @@ canvas {
 
 input {
   font-size: 12pt;
-  background-color: #0db3b6;
+  background-color: #0000ff;
   color: #fff;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 5px;
@@ -71,4 +71,17 @@ input {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.file-input-container {
+  margin: 30px;
+}
+.file-input-label {
+  background-color: #0000ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.file-input {
+  display: none;
 }

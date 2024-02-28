@@ -5,7 +5,8 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	min-height: 100vh;
+	max-width: 1900px;
+	min-height: auto;
 	background: #000;
 }
 
@@ -13,7 +14,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	width: 90%;
+	width: 100%;
 	max-width: 900px;
 }
 
@@ -35,7 +36,9 @@ h1 {
 }
 
 button {
-	background-color: #0fe6e6;
+	background-color: #0000ff;
+	padding: 10px;
+	font-size: 15px;
 }
 
 label {
@@ -126,7 +129,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-	color: #3498db;
+	color: #0000ff;
 }
 
 #drawingBoard {

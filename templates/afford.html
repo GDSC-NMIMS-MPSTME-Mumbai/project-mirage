@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Can you afford it?</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/afford.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+  <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+</head>
+{% include "_navbar.html" %}
+<body>
+<div class="container mt-5">
+  <h1>Can You Afford It?</h1>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIP Calculator with Chart</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>SIP Calculator</h1>
+    <form id="sipForm">
+      <div class="form-group">
+        <label for="investmentAmount">Initial Investment Amount:</label>
+        <input type="number" class="form-control" id="investmentAmount" placeholder="Enter initial investment amount">
+      </div>
+      <div class="form-group">
+        <label for="monthlyInvestment">Monthly Investment Amount:</label>
+        <input type="number" class="form-control" id="monthlyInvestment" placeholder="Enter monthly investment amount">
+      </div>
+      <div class="form-group">
+        <label for="rateOfReturn">Expected Annual Return (%):</label>
+        <input type="number" class="form-control" id="rateOfReturn" placeholder="Enter expected annual return">
+      </div>
+      <div class="form-group">
+        <label for="investmentPeriod">Investment Period (Years):</label>
+        <input type="number" class="form-control" id="investmentPeriod" placeholder="Enter investment period">
+      </div>
+      <button type="submit" class="btn btn-primary">Calculate</button>
+    </form>
+    <div class="mt-5">
+      <canvas id="sipChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#sipForm').submit(function(event) {
+        event.preventDefault();
+        var initialInvestment = parseFloat($('#investmentAmount').val());
+        var monthlyInvestment = parseFloat($('#monthlyInvestment').val());
+        var rateOfReturn = parseFloat($('#rateOfReturn').val()) / 100;
+        var investmentPeriod = parseFloat($('#investmentPeriod').val());
+        
+        var labels = [];
+        var data = [];
+        var totalInvestment = initialInvestment;
+        
+        for (var i = 1; i <= investmentPeriod * 12; i++) {
+          totalInvestment += monthlyInvestment;
+          var futureValue = totalInvestment * Math.pow((1 + rateOfReturn / 12), i);
+          labels.push(i);
+          data.push(futureValue.toFixed(2));
+        }
+        
+        var ctx = document.getElementById('sipChart').getContext('2d');
+        var chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'SIP Growth',
+              data: data,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+            }]
+          },
+          options: {
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Years'
+                }
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Value'
+                }
+              }
+            }
+          }
+        });
+      });
+      $('#sipForm').on('reset', function() {
+        // Clear all input fields
+        $('#investmentAmount, #monthlyInvestment, #rateOfReturn, #investmentPeriod').val('');
+        // Clear chart
+        var ctx = document.getElementById('sipChart').getContext('2d');
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      });
+    });
+  </script>
+</body>
+</html>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/afford.js') }}"></script>
+</body>
+</html>

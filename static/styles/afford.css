@@ -1,0 +1,42 @@
+body {
+    margin: 0; /* Remove default margin */
+    font-family: Arial, sans-serif; /* Add a fallback font */
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    padding: 10px 20px; /* Adjust padding for better spacing */
+}
+
+.logo {
+    margin-right: auto; /* Push the logo to the left */
+}
+
+.logo img {
+    height: 60px; /* Reduce logo size */
+    width: auto; /* Allow width to adjust proportionally */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 10px; /* Adjust margin for spacing between items */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #00f; /* Change color on hover */
+}
