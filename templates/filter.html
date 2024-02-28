@@ -16,15 +16,10 @@
       <h1>Filter</h1>
       <canvas id="can1"></canvas>
       <h2>Load Image</h2>
-      <p>
-        <input
-          type="file"
-          multiple="false"
-          accept="image/*"
-          id="image"
-          onchange="load()"
-        />
-      </p>
+      <div class="file-input-container">
+        <label for="image" class="file-input-label">Choose Image</label>
+        <input type="file" multiple="false" accept="image/*" id="image" onchange="load()" class="file-input" /> 
+      </div>
       <h2>Choose Filter</h2>
       <p>
         <input type="button" value="Grayscale" onclick="doGray()" />
