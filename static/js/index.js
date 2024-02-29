@@ -11,7 +11,7 @@ let points = 0
 let level = 1
 let timerId = null
 let particleNum = 0
-let numForRickRoll = (Math.random() * 10).toFixed(0)
+let numForRickRoll = 10 + (Math.random() * 10).toFixed(0)
 
 function moveRandom () {
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth))
