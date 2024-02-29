@@ -1,7 +1,6 @@
 # Import necessary modules and functions from Flask
-from flask import jsonify, render_template, Flask, Response, request
+from flask import render_template, Flask, Response, request
 import random
-import json
 
 # Import the generate_random function from the utils module
 from utils.generate import generate_random

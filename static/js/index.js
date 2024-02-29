@@ -11,7 +11,7 @@ let points = 0
 let level = 1
 let timerId = null
 let particleNum = 0
-let numForRickRoll = 0
+let numForRickRoll = (Math.random() * 10).toFixed(0)
 
 function moveRandom () {
   const randomX = Math.floor(Math.random() * (containerWidth - buttonWidth))
@@ -57,6 +57,7 @@ function moveButton () {
 
   pointsElement.innerText = points // Update the points
   levelElement.innerText = level
+
   if (points == numForRickRoll) {
     window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
   }
@@ -73,7 +74,6 @@ for (let i = 0; i < 100; i++) {
 }
 
 moveButton()
-numForRickRoll = (Math.random() * 10).toFixed(0)
 
 //Creating a function change background color randomly on button click
 const button = document.querySelector('#generate-button')
