@@ -51,8 +51,7 @@ body {
   font-size: 20px;
 }
 
-.reset-score-button,
-.auto-play-button {
+.menu-btn {
   background-color: transparent;
   color: white;
   font-size: 20px;
@@ -64,12 +63,11 @@ body {
   cursor: pointer;
 }
 
-.reset-score-button:hover,
-.auto-play-button:hover {
+.menu-btn:hover {
   background-color: rgb(170, 225, 242);
   color: black;
   border: 2px solid rgb(170, 225, 242);
-} 
+}
 
 nav {
   display: flex;
@@ -90,7 +88,7 @@ nav {
 
 .logo img {
   height: 80px;
-  width: 80px;
+	width: 80px;
 }
 
 nav ul {
@@ -113,4 +111,8 @@ nav ul li a {
 
 nav ul li a:hover {
   color: #3498db;
+}
+
+.js-spock-button>img {
+  transform: scale(2);
 }

@@ -13,23 +13,28 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   background-color: black;
   padding: 0 20px;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
-.logo {
-  margin-left: 20px;
+.logo, .nav-text {
+  display: inline-flex;
+  align-items: center;
 }
 
 .logo img {
-  height: 80px;
+  height: 80px; 
   width: 80px;
 }
 
 nav ul {
   list-style-type: none;
   display: flex;
-  margin: 0;
+  margin-right: 20px;
   padding: 0;
 }
 
@@ -39,12 +44,20 @@ nav ul li {
 
 nav ul li a {
   text-decoration: none;
-  color: #fff;
+  color: #fff; 
   transition: color 0.3s ease;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 nav ul li a:hover {
-  color: #3498db;
+  color: #3498db; 
+}
+
+.nav-text {
+  font-size: 40px; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: white; 
+  margin-left: 20px;  
 }
 
 h1,
